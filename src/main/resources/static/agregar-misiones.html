@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestionar Misiones</title>
     <link rel="stylesheet" href="estructure.css">
-    <link rel="stylesheet" href="portal-admin.css"> <!-- Reutilizamos estilos base -->
-    <link rel="stylesheet" href="misiones-portal-admin.css"> <!-- Estilos específicos -->
-    <!-- El bloque <style> ha sido eliminado -->
-</head>
+    <link rel="stylesheet" href="portal-admin.css"> <link rel="stylesheet" href="misiones-portal-admin.css"> </head>
 <body>
 <aside>
     <!-- Esta sección se rellenará con sidebar.js -->
@@ -64,15 +61,22 @@
                     <label for="puntajeMision">Puntaje <span class="label-opcional">(Opcional)</span></label>
                     <input type="number" id="puntajeMision" placeholder="Ej: 100" min="0">
                 </div>
-                <select id="empleadoAsignado">
-                    <option value="">Asignar a empleado... (Opcional)</option>
-                </select>
-                <select id="estadoMision" style="display: none;">
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Activa">Activa</option>
-                    <option value="Finalizada">Finalizada</option>
-                    <option value="Cancelada">Cancelada</option>
-                </select>
+                <div>
+                    <label for="empleadoAsignado">Asignar a Empleado <span class="label-opcional">(Opcional)</span></label>
+                    <select id="empleadoAsignado">
+                        <option value="">Seleccionar empleado...</option>
+                    </select>
+                </div>
+
+                <div id="estado-container" style="display: none;">
+                    <label for="estadoMision">Estado <span class="label-opcional">(Al editar)</span></label>
+                    <select id="estadoMision">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Activa">Activa</option>
+                        <option value="Finalizada">Finalizada</option>
+                        <option value="Cancelada">Cancelada</option>
+                    </select>
+                </div>
             </div>
             <div style="display: flex; gap: 10px;">
                 <button type="submit" id="btnGuardarMision">Agregar Misión</button>
@@ -123,11 +127,14 @@
         const misionCardsContainer = document.getElementById("mision-cards-container");
         const btnGuardar = document.getElementById("btnGuardarMision");
         const btnCancelar = document.getElementById("btnCancelarMision");
+        // **** CAMBIO AQUÍ: Referencia al contenedor del estado ****
+        const estadoContainer = document.getElementById("estado-container");
+        // **** FIN DEL CAMBIO ****
+
 
         let modoEdicionMision = false;
         let empleadosMap = new Map();
 
-        // --- Formateador de Fecha Simple ---
         function formatShortDate(isoString) {
             if (!isoString) return 'N/A';
             try {
@@ -135,13 +142,12 @@
             } catch (e) { return 'Inválida'; }
         }
 
-
         async function cargarEmpleadosSelect() {
             try {
                 const response = await fetch(`${API_EMPLEADOS}/supervisor/${SUPERVISOR_ID}`);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const empleados = await response.json();
-                empleadoSelect.innerHTML = '<option value="">Asignar a empleado... (Opcional)</option>';
+                empleadoSelect.innerHTML = '<option value="">Sin asignar / Opcional</option>';
                 empleadosMap.clear();
                 empleados.forEach(emp => {
                     const option = document.createElement("option");
@@ -180,11 +186,8 @@
                         nombreAsignado = `ID: ${empleadoIdAsignado}`;
                     }
 
-                    // --- **CAMBIO AQUÍ: Añadir Fecha Inicio** ---
                     const fechaInicioFormato = formatShortDate(mision.fechaInicio);
                     const fechaFinFormato = formatShortDate(mision.fechaFin);
-                    // --- FIN DEL CAMBIO ---
-
                     const puntajeMostrar = mision.puntajeMision !== null ? mision.puntajeMision : 'N/A';
                     const estadoMostrar = mision.estado || 'Pendiente';
                     let progreso = 0;
@@ -197,14 +200,11 @@
                                 <p class="mission-description">${mision.descripcion || 'Sin descripción.'}</p>
                                 <div class="mission-details">
                                     <span class="mission-assigned">Asignada a: <strong>${nombreAsignado}</strong></span>
-                                    <!-- **CAMBIO AQUÍ: Mostrar Fecha Inicio** -->
                                     <span class="mission-due">
                                         Inicio: ${fechaInicioFormato}<br>
                                         Fin: ${fechaFinFormato}<br>
-                                        Estado: <strong>${estadoMostrar}</strong><br>
-                                        Pts: ${puntajeMostrar}
+                                        Estado: <strong>${estadoMostrar}</strong> | Pts: ${puntajeMostrar}
                                     </span>
-                                    <!-- FIN DEL CAMBIO -->
                                 </div>
                                 ${ progreso > 0 ? `<div class="mission-progress"><div class="progress-bar"><div class="progress-fill" style="width: ${progreso}%;"></div></div><span class="progress-text">${progreso}%</span></div>` : ''}
                                 <div class="mission-card-actions">
@@ -227,7 +227,9 @@
             modoEdicionMision = false;
             btnGuardar.textContent = "Agregar Misión";
             btnCancelar.style.display = "none";
-            estadoSelect.style.display = "none";
+            // **** CAMBIO AQUÍ: Ocultar el contenedor del estado ****
+            if (estadoContainer) estadoContainer.style.display = "none";
+            // **** FIN DEL CAMBIO ****
             empleadoSelect.value = "";
         }
 
@@ -259,7 +261,9 @@
                 modoEdicionMision = true;
                 btnGuardar.textContent = "Actualizar Misión";
                 btnCancelar.style.display = "inline-block";
-                estadoSelect.style.display = "inline-block";
+                // **** CAMBIO AQUÍ: Mostrar el contenedor del estado ****
+                if (estadoContainer) estadoContainer.style.display = "block"; // o 'grid-item' si afecta el layout
+                // **** FIN DEL CAMBIO ****
                 form.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } catch (err) {
                 console.error("Error al cargar misión para editar:", err);
@@ -331,4 +335,3 @@
 </script>
 </body>
 </html>
-
