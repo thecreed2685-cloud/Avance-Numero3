@@ -9,181 +9,344 @@
 
 </head>
 <body>
-    <aside>
-        <!-- 1. Contenedor del Avatar (HTML MODIFICADO) -->
-        <!-- Le añadimos el ID al 'avatar' y al 'user-link' -->
-        <a class="user__container" href="usuario.html" id="sidebar-user-link">
-            <div class="avatar" id="sidebar-avatar">
-                <!-- El JS reemplazará esto -->
-                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
-            </div>
-            <!-- El JS pondrá el nombre aquí -->
-            <span id="sidebar-user-name" style="margin-top: 5px;">...</span>
-            <!-- El JS pondrá el puesto aquí -->
-            <span id="sidebar-user-role" class="sidebar-user-role">...</span>
+<aside>
+    <!-- Esta sección se rellenará con sidebar.js -->
+    <a class="user__container" href="usuario.html" id="sidebar-user-link">
+        <div class="avatar" id="sidebar-avatar">
+            <!-- El JS reemplazará esto -->
+            <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+        </div>
+        <span id="sidebar-user-name">Supervisor</span>
+        <span id="sidebar-user-role" class="sidebar-user-role"></span>
+    </a>
+    <!-- Esta sección se rellenará con sidebar.js -->
+    <div class="nav__container" id="sidebar-nav-links">
+        <!-- Links por defecto (por si JS falla) -->
+        <a class="section" href="portal-admin.html">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            Estadísticas
         </a>
+        <a class="section" href="agregar-misiones.html">
+            <ion-icon name="add-circle-outline"></ion-icon>
+            Gestionar Misiones
+        </a>
+        <a class="section" href="agregar-empleado.html">
+            <ion-icon name="person-add-outline"></ion-icon>
+            Gestionar Empleados
+        </a>
+    </div>
+    <div>
+        <a class="section logout" href="index.html" id="logout-button">
+            <ion-icon name="log-out-outline"></ion-icon>
+            Cerrar Sesión
+        </a>
+    </div>
+</aside>
 
-        <!-- 2. El JS construirá los enlaces de navegación aquí -->
-        <div class="nav__container" id="nav-links-container">
-            <!-- Los enlaces se generarán dinámicamente -->
+<main>
+    <section class="user-profile__container">
+        <div class="user-avatar">
+            <div class="img__container">
+                <img src="https://images.icon-icons.com/2483/PNG/512/user_icon_149851.png" alt="Avatar de usuario" id="profile-img">
+            </div>
+            <input type="text" id="edit-fotoUrl" class="edit-field" style="display: none; margin-top: 10px; text-align: center;" placeholder="Nueva URL de Foto">
+
+            <h2 id="profile-name">...</h2>
+            <p id="profile-role">...</p>
+
+            <div id="edit-buttons-container">
+                <button class="btn-edit" id="btn-start-edit">Editar Perfil</button>
+                <button class="btn-save" id="btn-save-edit" style="display: none;">Guardar Cambios</button>
+                <button class="btn-cancel" id="btn-cancel-edit" style="display: none;">Cancelar</button>
+            </div>
         </div>
 
-        <!-- 3. El botón de Logout (común para ambos) -->
-        <div>
-            <a class="section logout" href="index.html" id="logout-button">
-                <ion-icon name="log-out-outline"></ion-icon>
-                Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    <main>
-        <section class="user-profile__container">
-            <!-- Sección de Avatar (se rellena con JS) -->
-            <div class="user-avatar">
-                <!-- CAMBIO: Añadido ID para la imagen -->
-                <div class="img__container">
-                    <img src="https://images.icon-icons.com/2483/PNG/512/user_icon_149851.png" alt="Avatar de usuario" id="profile-img">
+        <div class="user-info__grid">
+            <div class="user-card">
+                <h3>Datos Personales</h3>
+                <div class="data-item">
+                    <p><strong>Nombre:</strong> <span id="data-nombre">...</span></p>
+                    <input type="text" id="edit-nombre" class="edit-field" style="display: none;">
                 </div>
-                <h2 id="profile-name">...</h2>
-                <p id="profile-role">...</p>
-                <button class="btn-edit">Editar Perfil</button>
+                <div class="data-item">
+                    <p><strong>Apellido:</strong> <span id="data-apellido">...</span></p>
+                    <input type="text" id="edit-apellido" class="edit-field" style="display: none;">
+                </div>
+                <div class="data-item">
+                    <p><strong>DNI:</strong> <span id="data-dni">...</span></p>
+                </div>
+                <div class="data-item">
+                    <p><strong>Nacimiento:</strong> <span id="data-nacimiento">...</span></p>
+                    <div class="edit-container" style="display: none;">
+                        <input type="date" id="edit-nacimiento" class="edit-field">
+                        <button class="btn-clear" data-input="nacimiento">🗑️</button>
+                    </div>
+                </div>
+                <div class="data-item">
+                    <p><strong>Teléfono:</strong> <span id="data-telefono">...</span></p>
+                    <div class="edit-container" style="display: none;">
+                        <input type="tel" id="edit-telefono" class="edit-field" pattern="[0-9]{9,15}" title="Debe contener de 9 a 15 dígitos">
+                        <button class="btn-clear" data-input="telefono">🗑️</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Sección de Información (se rellena con JS) -->
-            <div class="user-info__grid">
-                <div class="user-card">
-                    <h3>Datos Personales</h3>
-                    <p><strong>Nombre:</strong> <span id="data-full-name">...</span></p>
-                    <p><strong>DNI:</strong> <span id="data-dni">...</span></p>
-                    <p><strong>Nacimiento:</strong> <span id="data-nacimiento">...</span></p>
-                    <p><strong>Teléfono:</strong> <span id="data-telefono">...</span></p>
-                </div>
-
-                <div class="user-card">
-                    <h3>Datos Laborales</h3>
+            <div class="user-card">
+                <h3>Datos Laborales</h3>
+                <div class="data-item">
                     <p><strong>Correo:</strong> <span id="data-correo">...</span></p>
+                </div>
+                <div class="data-item">
                     <p><strong>Puesto:</strong> <span id="data-puesto">...</span></p>
+                    <input type="text" id="edit-puesto" class="edit-field" style="display: none;">
+                </div>
+                <div class="data-item">
                     <p><strong>Estado:</strong> <span id="data-estado">...</span></p>
                 </div>
+            </div>
 
-                <div class="user-card">
-                    <h3>Información del Contrato</h3>
+            <div class="user-card">
+                <h3>Información del Contrato</h3>
+                <div class="data-item">
                     <p><strong>Ingreso:</strong> <span id="data-ingreso">...</span></p>
+                </div>
+                <div class="data-item">
                     <p><strong>Tiempo:</strong> <span id="data-tiempo">...</span></p>
+                    <input type="text" id="edit-tiempo" class="edit-field" style="display: none;">
+                </div>
+                <div class="data-item">
                     <p><strong>Contrato:</strong> <span id="data-contrato">...</span></p>
+                    <input type="text" id="edit-contrato" class="edit-field" style="display: none;">
                 </div>
             </div>
-        </section>
-    </main>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        </div>
+    </section>
+</main>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="sidebar.js"></script>
 
-    <!-- SCRIPT ACTUALIZADO -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // 1. Obtener el usuario de la sesión
-            const usuarioJSON = sessionStorage.getItem("usuarioLogueado");
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. OBTENER USUARIO Y REFERENCIAS ---
+        const usuarioJSON = sessionStorage.getItem("usuarioLogueado");
+        if (!usuarioJSON) {
+            // sidebar.js ya maneja la redirección si no hay usuario
+            return;
+        }
+        let usuario = JSON.parse(usuarioJSON);
 
-            if (!usuarioJSON) {
-                alert("No se ha iniciado sesión. Redirigiendo al login.");
-                window.location.href = "index.html";
-                return;
+        // Referencias a elementos de visualización (spans) en <main>
+        const spans = {
+            profileName: document.getElementById("profile-name"),
+            profileRole: document.getElementById("profile-role"),
+            profileImg: document.getElementById("profile-img"),
+            nombre: document.getElementById("data-nombre"),
+            apellido: document.getElementById("data-apellido"),
+            // fullName: document.getElementById("data-full-name"), // ID ya no usado, usamos nombre/apellido
+            dni: document.getElementById("data-dni"),
+            nacimiento: document.getElementById("data-nacimiento"),
+            telefono: document.getElementById("data-telefono"),
+            correo: document.getElementById("data-correo"),
+            puesto: document.getElementById("data-puesto"),
+            estado: document.getElementById("data-estado"),
+            ingreso: document.getElementById("data-ingreso"),
+            tiempo: document.getElementById("data-tiempo"),
+            contrato: document.getElementById("data-contrato")
+        };
+
+        // Referencias a elementos de edición (inputs) en <main>
+        const inputs = {
+            nombre: document.getElementById("edit-nombre"),
+            apellido: document.getElementById("edit-apellido"),
+            nacimiento: document.getElementById("edit-nacimiento"),
+            telefono: document.getElementById("edit-telefono"),
+            puesto: document.getElementById("edit-puesto"),
+            tiempo: document.getElementById("edit-tiempo"),
+            contrato: document.getElementById("edit-contrato"),
+            fotoUrl: document.getElementById("edit-fotoUrl")
+        };
+
+        // Botones en <main>
+        const btnStartEdit = document.getElementById("btn-start-edit");
+        const btnSaveEdit = document.getElementById("btn-save-edit");
+        const btnCancelEdit = document.getElementById("btn-cancel-edit");
+        const btnClearFields = document.querySelectorAll(".btn-clear");
+        // Nota: logoutButton es manejado por sidebar.js ahora
+
+        // --- 2. FUNCIONES HELPER ---
+        function formatearFecha(fechaString, paraInput = false) {
+            if (!fechaString) return paraInput ? "" : "No registrado";
+            const fecha = new Date(fechaString);
+            if (isNaN(fecha)) return paraInput ? "" : "Fecha inválida";
+
+            if (paraInput) {
+                const year = fecha.getFullYear();
+                const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
+                const day = fecha.getDate().toString().padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            } else {
+                return fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
             }
+        }
 
-            const usuario = JSON.parse(usuarioJSON);
+        function obtenerFoto(url, nombre) {
+            if (url) return url;
+            const nombreEncoded = encodeURIComponent(nombre);
+            return `https://ui-avatars.com/api/?name=${nombreEncoded}&background=E2E8F0&color=2D3748`;
+        }
 
-            // 2. Definir los menús
-            const menuSupervisor = `
-                    <a class="section" href="portal-admin.html">
-                        <ion-icon name="bar-chart-outline"></ion-icon>
-                        Estadísticas
-                    </a>
-                    <a class="section" href="agregar-misiones.html">
-                        <ion-icon name="add-circle-outline"></ion-icon>
-                        Gestionar Misiones
-                    </a>
-                    <a class="section" href="agregar-empleado.html">
-                        <ion-icon name="person-add-outline"></ion-icon>
-                        Gestionar Empleados
-                    </a>
-                `;
-
-            const menuEmpleado = `
-                    <a class="section" href="dashboard.html">
-                        <ion-icon name="stats-chart-outline"></ion-icon>
-                        Dashboard
-                    </a>
-                    <a class="section" href="misiones.html">
-                        <ion-icon name="speedometer-outline"></ion-icon>
-                        Misiones
-                    </a>
-                    <a class="section" href="reportes.html">
-                        <ion-icon name="reader-outline"></ion-icon>
-                        Reportes
-                    </a>
-                `;
-
-            // --- FUNCIÓN HELPER para formatear fechas ---
-            function formatearFecha(fechaString) {
-                if (!fechaString) return "No registrado";
-                return new Date(fechaString).toLocaleDateString('es-ES', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-            }
-
-            // --- FUNCIÓN HELPER para manejar fotos (fallback) ---
-            function obtenerFoto(url, nombre) {
-                if (url) return url;
-                // Si la foto es nula, usa UI Avatars con las iniciales
-                return `https://ui-avatars.com/api/?name=${nombre.replace(' ', '+')}&background=E2E8F0&color=2D3748`;
-            }
-
-            // 3. Rellenar la página (AHORA AMBOS TIENEN LOS MISMOS DATOS)
-
+        // --- 3. FUNCIÓN PARA MOSTRAR DATOS (MODO VISUALIZACIÓN) ---
+        function mostrarDatos() {
+            // Preparamos los datos a mostrar
             const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`;
             const puestoUsuario = usuario.puesto || (usuario.esSupervisor ? "Supervisor" : "Empleado");
             const fotoUrl = obtenerFoto(usuario.fotoUrl, nombreCompleto);
 
-            // --- INICIO: ARREGLO DEL ASIDE ---
+            // Rellenar Perfil Principal (Avatar, Nombre, Rol en <main>)
+            spans.profileName.textContent = nombreCompleto;
+            spans.profileRole.textContent = puestoUsuario;
+            spans.profileImg.src = fotoUrl;
+            spans.profileImg.alt = `Foto de ${nombreCompleto}`;
 
-            // Rellenar Sidebar
-            document.getElementById("nav-links-container").innerHTML = usuario.esSupervisor ? menuSupervisor : menuEmpleado;
-            document.getElementById("sidebar-user-name").textContent = nombreCompleto; // <-- CORREGIDO
-            document.getElementById("sidebar-user-role").textContent = puestoUsuario;  // <-- AÑADIDO
+            // Rellenar Tarjetas de Datos
+            if (spans.nombre) spans.nombre.textContent = usuario.nombre;
+            if (spans.apellido) spans.apellido.textContent = usuario.apellido;
+            spans.dni.textContent = usuario.dni || "No registrado";
+            spans.nacimiento.textContent = formatearFecha(usuario.fechaNacimiento);
+            spans.telefono.textContent = usuario.telefono || "No registrado";
+            spans.correo.textContent = usuario.correoEmpresarial;
+            spans.puesto.textContent = puestoUsuario; // Muestra el puesto calculado
+            spans.estado.textContent = usuario.estado || "No registrado";
+            spans.ingreso.textContent = formatearFecha(usuario.fechaIngreso);
+            spans.tiempo.textContent = usuario.tiempoTrabajo || "No registrado";
+            spans.contrato.textContent = usuario.esContrato || "No registrado";
 
-            // Lógica de la foto del Sidebar
-            const avatarContainer = document.getElementById("sidebar-avatar");
-            avatarContainer.innerHTML = `<img src="${fotoUrl}" alt="Foto de perfil de ${nombreCompleto}" class="sidebar-avatar-img">`;
+            // Gestión de visibilidad: Ocultar edición, mostrar visualización
+            document.querySelectorAll('.edit-field, .edit-container').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.data-item p').forEach(el => el.style.display = 'block'); // Muestra los párrafos
 
-            // --- FIN: ARREGLO DEL ASIDE ---
+            // Botones: Mostrar Editar, ocultar Guardar/Cancelar
+            btnStartEdit.style.display = 'inline-block';
+            btnSaveEdit.style.display = 'none';
+            btnCancelEdit.style.display = 'none';
+        }
 
+        // --- 4. FUNCIÓN PARA ENTRAR EN MODO EDICIÓN ---
+        function iniciarEdicion() {
+            // Rellenar inputs con datos actuales del objeto 'usuario'
+            inputs.nombre.value = usuario.nombre;
+            inputs.apellido.value = usuario.apellido;
+            inputs.nacimiento.value = formatearFecha(usuario.fechaNacimiento, true);
+            inputs.telefono.value = usuario.telefono || "";
+            inputs.puesto.value = usuario.puesto || "";
+            inputs.tiempo.value = usuario.tiempoTrabajo || "";
+            inputs.contrato.value = usuario.esContrato || "";
+            inputs.fotoUrl.value = usuario.fotoUrl || "";
 
-            // Rellenar Perfil Principal
-            document.getElementById("profile-name").textContent = nombreCompleto;
-            document.getElementById("profile-role").textContent = puestoUsuario;
-            document.getElementById("profile-img").src = fotoUrl; // <-- Carga la foto en el perfil
-            document.getElementById("profile-img").alt = `Foto de perfil de ${nombreCompleto}`;
+            // Gestión de visibilidad: Mostrar edición, ocultar visualización
+            document.querySelectorAll('.edit-field, .edit-container').forEach(el => el.style.display = 'flex'); // Muestra contenedores de edición
+            document.querySelectorAll('.data-item p').forEach(el => el.style.display = 'none'); // Oculta los párrafos
+            document.querySelectorAll('.data-item > input.edit-field').forEach(el => el.style.display = 'block'); // Muestra inputs directos
 
+            // Botones: Ocultar Editar, mostrar Guardar/Cancelar
+            btnStartEdit.style.display = 'none';
+            btnSaveEdit.style.display = 'inline-block';
+            btnCancelEdit.style.display = 'inline-block';
+        }
 
-            // Rellenar Tarjetas de Datos (con validación por si algún dato es null)
-            document.getElementById("data-full-name").textContent = nombreCompleto;
-            document.getElementById("data-dni").textContent = usuario.dni || "No registrado";
-            document.getElementById("data-nacimiento").textContent = formatearFecha(usuario.fechaNacimiento);
-            document.getElementById("data-telefono").textContent = usuario.telefono || "No registrado";
-            document.getElementById("data-correo").textContent = usuario.correoEmpresarial;
-            document.getElementById("data-puesto").textContent = puestoUsuario;
-            document.getElementById("data-estado").textContent = usuario.estado || "No registrado";
-            document.getElementById("data-ingreso").textContent = formatearFecha(usuario.fechaIngreso);
-            document.getElementById("data-tiempo").textContent = usuario.tiempoTrabajo || "No registrado";
-            document.getElementById("data-contrato").textContent = usuario.esContrato || "No registrado";
+        // --- 5. FUNCIÓN PARA GUARDAR CAMBIOS ---
+        async function guardarCambios() {
+            // Construir objeto con datos actualizados desde los inputs
+            const datosActualizados = {
+                nombre: inputs.nombre.value.trim(),
+                apellido: inputs.apellido.value.trim(),
+                fechaNacimiento: inputs.nacimiento.value ? inputs.nacimiento.value : null,
+                telefono: inputs.telefono.value.trim() ? inputs.telefono.value.trim() : null,
+                puesto: inputs.puesto.value.trim() ? inputs.puesto.value.trim() : null,
+                tiempoTrabajo: inputs.tiempo.value.trim() ? inputs.tiempo.value.trim() : null,
+                esContrato: inputs.contrato.value.trim() ? inputs.contrato.value.trim() : null,
+                fotoUrl: inputs.fotoUrl.value.trim() ? inputs.fotoUrl.value.trim() : null,
+                // Incluir IDs y campos no editables que el backend pueda necesitar
+                idEmpleado: usuario.idEmpleado || null,
+                idSupervisor: usuario.idSupervisor || null,
+                correoEmpresarial: usuario.correoEmpresarial,
+                dni: usuario.dni,
+            };
 
-            // 4. Limpiar sesión al hacer logout
-            document.getElementById("logout-button").addEventListener("click", () => {
-                sessionStorage.clear();
+            // Determinar el endpoint correcto
+            let endpoint = '';
+            const API_BASE_URL = "http://localhost:8085"; // Asegúrate que sea tu URL base
+            if (usuario.esSupervisor) {
+                endpoint = `${API_BASE_URL}/api/supervisores/${usuario.idSupervisor}`; // Necesita crearse en backend
+            } else {
+                endpoint = `${API_BASE_URL}/api/empleados/${usuario.idEmpleado}`; // Necesita crearse/modificarse en backend
+            }
+
+            // --- LLAMADA A LA API ---
+            try {
+                btnSaveEdit.disabled = true;
+                btnSaveEdit.textContent = "Guardando...";
+
+                const response = await fetch(endpoint, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datosActualizados)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Error ${response.status}: ${errorText || response.statusText}`);
+                }
+
+                const usuarioActualizado = await response.json();
+                // IMPORTANTE: Asegurarse que el backend devuelva el objeto completo actualizado
+                // incluyendo la bandera 'esSupervisor' que usamos en el login
+                usuarioActualizado.esSupervisor = usuario.esSupervisor;
+
+                // Actualizar sessionStorage y la variable local 'usuario'
+                sessionStorage.setItem("usuarioLogueado", JSON.stringify(usuarioActualizado));
+                usuario = usuarioActualizado;
+
+                alert("Perfil actualizado correctamente.");
+                mostrarDatos(); // Vuelve al modo visualización
+
+                // Forzar a sidebar.js a recargar el nombre/foto si cambiaron
+                // (La forma más simple es recargar la página)
+                window.location.reload();
+
+            } catch (error) {
+                console.error("Error al guardar cambios:", error);
+                alert(`No se pudo actualizar el perfil: ${error.message}\nAsegúrate de que los endpoints PUT existan en el backend.`);
+            } finally {
+                btnSaveEdit.disabled = false;
+                btnSaveEdit.textContent = "Guardar Cambios";
+            }
+        }
+
+        // --- 6. EVENT LISTENERS ---
+        btnStartEdit.addEventListener("click", iniciarEdicion);
+        btnCancelEdit.addEventListener("click", mostrarDatos);
+        btnSaveEdit.addEventListener("click", guardarCambios);
+
+        // Listener para los botones de borrar (🗑️)
+        btnClearFields.forEach(button => {
+            button.addEventListener("click", () => {
+                const inputId = button.dataset.input; // Obtiene 'nacimiento' o 'telefono'
+                // Busca el input por el ID completo 'edit-nacimiento' o 'edit-telefono'
+                const targetInput = document.getElementById(`edit-${inputId}`);
+                if (targetInput) {
+                    targetInput.value = ""; // Limpia el valor del input
+                }
             });
         });
-    </script>
+
+        // Nota: El listener de Logout ahora está en sidebar.js
+
+        // --- 7. CARGA INICIAL ---
+        mostrarDatos(); // Llama a mostrarDatos para llenar la página al cargar
+
+    });
+</script>
 </body>
 </html>

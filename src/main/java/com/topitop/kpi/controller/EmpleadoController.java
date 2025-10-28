@@ -108,4 +108,42 @@ public class EmpleadoController {
         empleadoService.eliminarEmpleado(idEmpleado);
         return ResponseEntity.noContent().build();
     }
+
+    // --- **NUEVO ENDPOINT PARA ACTUALIZAR PERFIL DE EMPLEADO** ---
+    @PutMapping("/{idEmpleado}")
+    public ResponseEntity<Empleado> actualizarPerfilEmpleado(
+            @PathVariable Integer idEmpleado,
+            @RequestBody Empleado datosActualizados) {
+
+        // 1. Busca el empleado existente por ID
+        Optional<Empleado> empleadoOptional = empleadoService.buscarPorId(idEmpleado);
+
+        // 2. Si no existe, devuelve 404 Not Found
+        if (empleadoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Empleado empleadoExistente = empleadoOptional.get();
+
+        // 3. Actualiza SOLO los campos permitidos desde el frontend
+        //    (Ignoramos ID, DNI, Correo, Fechas sensibles, Estado, Supervisor)
+        empleadoExistente.setNombre(datosActualizados.getNombre());
+        empleadoExistente.setApellido(datosActualizados.getApellido());
+        empleadoExistente.setFechaNacimiento(datosActualizados.getFechaNacimiento()); // Puede ser null
+        empleadoExistente.setTelefono(datosActualizados.getTelefono()); // Puede ser null
+        empleadoExistente.setPuesto(datosActualizados.getPuesto()); // Puede ser null
+        // OJO: 'tiempoTrabajo' y 'esContrato' usualmente son calculados o vienen de RRHH,
+        // Quizás no deberías permitir que el usuario los edite directamente.
+        // Si quieres permitirlos, descomenta las siguientes líneas:
+        // empleadoExistente.setTiempoTrabajo(datosActualizados.getTiempoTrabajo()); // Puede ser null
+        // empleadoExistente.setEsContrato(datosActualizados.getEsContrato()); // Puede ser null
+        empleadoExistente.setFotoUrl(datosActualizados.getFotoUrl()); // Puede ser null
+
+
+        // 4. Guarda los cambios en la base de datos
+        Empleado empleadoGuardado = empleadoService.guardarEmpleado(empleadoExistente);
+
+        // 5. Devuelve el empleado actualizado (importante para actualizar sessionStorage)
+        return ResponseEntity.ok(empleadoGuardado);
+    }
 }

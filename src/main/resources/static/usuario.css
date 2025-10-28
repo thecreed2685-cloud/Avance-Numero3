@@ -1,9 +1,9 @@
 main {
-    min-height: 100%;
+    min-height: 100%; /* Asegura que main ocupe al menos toda la altura */
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Cambiado para evitar desbordamiento vertical */
     padding: 40px 20px;
     box-sizing: border-box;
 }
@@ -23,7 +23,7 @@ main {
 .img__container {
     width: 180px;
     height: 180px;
-    margin: 0 auto;
+    margin: 0 auto 15px auto; /* Añadido margen inferior */
     border-radius: 50%;
     overflow: hidden;
     border: 6px solid #547BA6;
@@ -48,25 +48,118 @@ main {
     margin-top: 4px;
 }
 
-.btn-edit {
-    font-size: 1.1rem;
+/* --- ESTILOS PARA BOTONES DE EDICIÓN/GUARDADO --- */
+#edit-buttons-container {
     margin-top: 20px;
-    padding: 12px 24px;
-    background: #547BA6;
-    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre botones */
+}
+
+.btn-edit, .btn-save, .btn-cancel {
+    font-size: 1rem; /* Reducido ligeramente */
+    padding: 10px 20px; /* Ajustado padding */
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(84, 123, 166, 0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0, 0.1);
 }
 
+.btn-edit {
+    background: #547BA6;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(84, 123, 166, 0.3);
+}
 .btn-edit:hover {
     background: #4A6E99;
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 16px rgba(84, 123, 166, 0.4);
 }
+
+.btn-save {
+    background-color: #48BB78; /* Verde para guardar */
+    color: white;
+}
+.btn-save:hover {
+    background-color: #38A169;
+    transform: translateY(-2px);
+}
+.btn-save:disabled { /* Estilo cuando está guardando */
+    background-color: #A0AEC0;
+    cursor: not-allowed;
+    transform: none; /* Desactivar hover */
+    box-shadow: none; /* Desactivar hover */
+}
+
+
+.btn-cancel {
+    background-color: #E2E8F0; /* Gris más claro para cancelar */
+    color: #4A5568; /* Texto oscuro */
+    border: 1px solid #CBD5E0; /* Borde sutil */
+}
+.btn-cancel:hover {
+    background-color: #CBD5E0;
+    transform: translateY(-2px);
+}
+
+
+/* --- ESTILOS PARA INPUTS DE EDICIÓN --- */
+.edit-field {
+    color: #2D3748;
+    padding: 10px; /* Ligeramente menos padding que los inputs de forms */
+    border: 1px solid #CBD5E0; /* Borde más suave */
+    border-radius: 6px; /* Bordes más suaves */
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 0.95rem; /* Tamaño de fuente similar al texto 'p' */
+    margin-top: 4px; /* Pequeño espacio arriba */
+    background-color: #F7FAFC; /* Fondo muy claro para indicar edición */
+}
+
+/* Estilo para inputs no editables (como DNI, correo) si decidieras mostrarlos */
+.edit-field[readonly] {
+    background-color: #E2E8F0;
+    cursor: not-allowed;
+    border-color: #E2E8F0;
+}
+
+.edit-field:focus {
+    border-color: #547BA6;
+    box-shadow: 0 0 0 2px rgba(84, 123, 166, 0.2);
+    outline: none;
+    background-color: #fff; /* Fondo blanco al enfocar */
+}
+
+/* Contenedor para input + botón borrar */
+.edit-container {
+    display: flex; /* Se mostrará con JS */
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+.edit-container .edit-field {
+    flex-grow: 1; /* Input ocupa el espacio disponible */
+    margin-top: 0; /* Sin margen superior dentro del container */
+}
+
+/* Botón para borrar campo (🗑️) */
+.btn-clear {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #E53E3E; /* Rojo */
+    padding: 5px;
+    line-height: 1; /* Alinear mejor el ícono */
+    flex-shrink: 0; /* Evita que el botón se encoja */
+}
+.btn-clear:hover {
+    color: #C53030;
+}
+
 
 .user-info__grid {
     display: grid;
@@ -99,30 +192,50 @@ main {
     border-bottom: 1px solid #E2E8F0;
 }
 
-.user-card p {
-    font-size: 1rem;
-    color: #4A5568;
-    margin-bottom: 12px;
-    line-height: 1.5;
+/* Contenedor para cada par P/Input */
+.data-item {
+    margin-bottom: 12px; /* Espacio entre items */
+    min-height: 40px; /* Altura mínima para alinear bien */
 }
-
-.user-card p:last-child {
+.data-item:last-child {
     margin-bottom: 0;
 }
 
+
+.user-card p {
+    font-size: 1rem;
+    color: #4A5568;
+    line-height: 1.5;
+    /* Quitamos margen inferior aquí, lo controla .data-item */
+    margin-bottom: 0;
+    /* Añadimos transición para suavizar el cambio display: none/block */
+    transition: display 0.3s ease;
+}
+
+
 .user-card strong {
     color: #2D3748;
-    font-weight: bold;
+    font-weight: bold; /* Mantenido bold para etiquetas */
     margin-right: 5px;
 }
 
 .user-card span {
-    color: #1A202C;
+    color: #2D3748; /* Color de dato más oscuro */
 }
 
 @media (max-width: 600px) {
     main{
-        align-items: flex-start;
+        align-items: flex-start; /* Ya lo tenías */
+        padding: 20px 10px; /* Menos padding en móvil */
+    }
+    .img__container {
+        width: 140px; /* Avatar más pequeño */
+        height: 140px;
+    }
+    .user-avatar h2 { font-size: 1.8rem; }
+    .user-avatar p { font-size: 1.1rem; }
+    /* Asegura que los botones no se salgan en móvil */
+    #edit-buttons-container {
+        flex-wrap: wrap; /* Permite que los botones bajen si no caben */
     }
 }
-
