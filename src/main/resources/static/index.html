@@ -27,13 +27,35 @@
     <script>
         document.querySelector('.form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const correo = document.getElementById('usuario').value.trim().toLowerCase();
+            const correo = document.getElementById('usuario').value.trim();
 
-            // Cambia estos correos/domains según tu lógica real
-            if (correo.endsWith("@admin.pe")) {
-                window.location.href = "portal-admin.html";
-            } else {
+            // Lógica de roles simple (como la tenías)
+            if (correo.endsWith("@empresa.admin.pe")) {
+                // Es un admin/supervisor, busquemos sus datos
+                fetch(`http://localhost:8085/api/supervisores/correo/${correo}`)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Supervisor no encontrado');
+                        return res.json();
+                    })
+                    .then(supervisor => {
+                        // --- ¡ÉXITO! Guardamos los datos del supervisor ---
+                        sessionStorage.setItem("supervisorId", supervisor.idSupervisor);
+                        sessionStorage.setItem("supervisorNombre", supervisor.nombre);
+
+                        // Redirigir al portal de admin
+                        window.location.href = "portal-admin.html";
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Error: Supervisor no encontrado o el servidor falló.");
+                    });
+
+            } else if (correo.endsWith("@empleado.pe")) {
+                // Lógica para empleados (si la tienes)
+                // (Aquí podrías guardar el id del empleado)
                 window.location.href = "dashboard.html";
+            } else {
+                alert("Correo no reconocido");
             }
         });
     </script>

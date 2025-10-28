@@ -6,153 +6,315 @@
     <title>Document</title>
     <link rel="stylesheet" href="estructure.css">
     <link rel="stylesheet" href="portal-admin.css">
+    <style>
+        /* Estilos para los botones de la tabla */
+        .acciones { text-align: center; }
+        .btn-editar, .btn-eliminar {
+            padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer;
+            color: white; font-size: 0.9em; font-weight: bold; margin: 0 3px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .btn-editar { background-color: #547BA6; }
+        .btn-eliminar { background-color: #a80b0b; }
+        .btn-editar:hover { background-color: #4A6E99; transform: scale(1.05); }
+        .btn-eliminar:hover { background-color: #C0392B; transform: scale(1.05); }
+    </style>
 </head>
 <body>
-    <aside>
-        <a class="user__container" href="usuario-admin.html">
-            <div class="avatar">
-                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
-            </div>
-            Supervisor
+<aside>
+    <a class="user__container" href="usuario-admin.html">
+        <div class="avatar">
+            <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+        </div>
+        Supervisor
+    </a>
+    <div class="nav__container">
+        <a class="section" href="portal-admin.html">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            Estadísticas
         </a>
-        <div class="nav__container">
-            <a class="section" href="portal-admin.html">
-                <ion-icon name="bar-chart-outline"></ion-icon>
-                Estadísticas
-            </a>
-            <a class="section" href="agregar-misiones.html">
-                <ion-icon name="add-circle-outline"></ion-icon>
-                Agregar Misiones
-            </a>
-            <a class="section" href="agregar-empleado.html">
-                <ion-icon name="person-add-outline"></ion-icon>
-                Agregar Empleado
-            </a>
+        <a class="section" href="agregar-misiones.html">
+            <ion-icon name="add-circle-outline"></ion-icon>
+            Gestionar Misiones
+        </a>
+        <a class="section" href="agregar-empleado.html">
+            <ion-icon name="person-add-outline"></ion-icon>
+            Gestionar Empleados
+        </a>
+    </div>
+    <div>
+        <a class="section logout" href="index.html">
+            <ion-icon name="log-out-outline"></ion-icon>
+            Cerrar Sesión
+        </a>
+    </div>
+</aside>
+<main>
+    <section>
+        <h2>Gestión de Empleados</h2>
+        <div class="buscar-id">
+            <input type="number" id="buscarId" placeholder="Buscar por ID">
+            <button id="btnBuscar">Buscar</button>
+            <button id="btnFormatear">Formatear</button>
         </div>
-        <div>
-            <a class="section logout" href="index.html">
-                <ion-icon name="log-out-outline"></ion-icon>
-                Cerrar Sesión
-            </a>
+
+        <form id="formEmpleado">
+            <input type="hidden" id="idEmpleado"> <div class="form-grid">
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="text" id="apellido" placeholder="Apellido" required>
+            <input type="email" id="correo" placeholder="Correo empresarial" required>
+            <input type="text" id="puesto" placeholder="Puesto" required>
+            <input type="text" id="dni" placeholder="DNI (8 dígitos)" required pattern="[0-9]{8}" title="Debe contener 8 dígitos numéricos">
+            <input type="tel" id="telefono" placeholder="Teléfono (Opcional)" pattern="[0-9]{9,15}" title="Debe contener de 9 a 15 dígitos">
         </div>
-    </aside>
-    <main>
-        <section>
-            <h2>Gestión de Empleados</h2>
-            <!-- 🔍 Buscar empleado por ID -->
-            <div class="buscar-id">
-                <input type="number" id="buscarId" placeholder="Buscar por ID">
-                <button id="btnBuscar">Buscar</button>
-                <button id="btnFormatear">Formatear</button>
+
+            <div class="botones-form">
+                <button type="submit" id="btnGuardar">Agregar Empleado</button>
+                <button type="button" id="btnCancelar" style="display:none;">Cancelar</button>
             </div>
-
-            <!-- 🧾 Formulario -->
-            <form id="formEmpleado">
-                <input type="hidden" id="idEmpleado"> <!-- Solo para actualización -->
-
-                <div class="form-grid">
-                    <input type="text" id="nombre" placeholder="Nombre" required>
-                    <input type="text" id="apellido" placeholder="Apellido" required>
-                    <input type="email" id="correo" placeholder="Correo empresarial" required>
-                    <input type="text" id="puesto" placeholder="Puesto" required>
-                </div>
-
-                <div class="botones-form">
-                    <button type="submit" id="btnGuardar">Agregar Empleado</button>
-                    <button type="button" id="btnCancelar" style="display:none;">Cancelar</button>
-                </div>
-            </form>
-        </section>
-        <section>
-            <h2>Lista de Empleados</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Puesto</th>
-                    <th>Correo</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Aquí se insertarán los empleados dinámicamente -->
-                </tbody>
-            </table>
-        </section>
-    </main>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const tablaEmpleados = document.querySelector("table tbody");
-            const form = document.getElementById("formEmpleado");
-
-            // --- Cargar empleados desde el backend ---
-            function cargarEmpleados() {
-                fetch("http://localhost:8085/api/empleados")
-                    .then(res => {
-                        if (!res.ok) throw new Error("Error al obtener empleados");
-                        return res.json();
-                    })
-                    .then(data => {
-                        tablaEmpleados.innerHTML = "";
-                        data.forEach(emp => {
-                            const fila = `
+        </form>
+    </section>
+    <section>
+        <h2>Lista de Empleados</h2>
+        <table>
+            <thead>
             <tr>
-              <td>${emp.idEmpleado}</td>
-              <td>${emp.nombre} ${emp.apellido}</td>
-              <td>${emp.puesto}</td>
-              <td>${emp.correoEmpresarial}</td>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Puesto</th>
+                <th>Correo</th>
+                <th>Acciones</th>
             </tr>
-          `;
-                            tablaEmpleados.insertAdjacentHTML("beforeend", fila);
-                        });
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        tablaEmpleados.innerHTML = `
-          <tr><td colspan="4" style="text-align:center; color:red;">
-            Error al cargar empleados.
-          </td></tr>`;
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+</main>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. LEER DATOS DE SESIÓN ---
+        const SUPERVISOR_ID = sessionStorage.getItem("supervisorId");
+
+        if (!SUPERVISOR_ID) {
+            alert("No ha iniciado sesión como supervisor. Redirigiendo al login...");
+            window.location.href = "index.html";
+            return;
+        }
+
+        // --- CONSTANTES Y SELECTORES ---
+        const API_URL = "http://localhost:8085/api/empleados";
+
+        // Formulario y campos
+        const form = document.getElementById("formEmpleado");
+        const idEmpleadoInput = document.getElementById("idEmpleado");
+        const nombreInput = document.getElementById("nombre");
+        const apellidoInput = document.getElementById("apellido");
+        const correoInput = document.getElementById("correo");
+        const puestoInput = document.getElementById("puesto");
+        const dniInput = document.getElementById("dni");
+        const telefonoInput = document.getElementById("telefono"); // <-- Selector nuevo
+
+        // Tabla
+        const tablaEmpleados = document.querySelector("table tbody");
+
+        // Botones
+        const btnGuardar = document.getElementById("btnGuardar");
+        const btnCancelar = document.getElementById("btnCancelar");
+        const btnBuscar = document.getElementById("btnBuscar");
+        const btnFormatear = document.getElementById("btnFormatear");
+        const buscarIdInput = document.getElementById("buscarId");
+
+        let modoEdicion = false;
+
+        // --- FUNCIÓN Cargar empleados (MODIFICADA) ---
+        function cargarEmpleados() {
+            fetch(`${API_URL}/supervisor/${SUPERVISOR_ID}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Error al obtener empleados del supervisor");
+                    return res.json();
+                })
+                .then(data => {
+                    tablaEmpleados.innerHTML = "";
+                    data.forEach(emp => {
+                        // Verificación de nulidad para los nuevos campos
+                        const dniMostrar = emp.dni ? emp.dni : 'N/A';
+                        const telefonoMostrar = emp.telefono ? emp.telefono : 'N/A';
+
+                        const fila = `
+                            <tr>
+                                <td>${emp.idEmpleado}</td>
+                                <td>${emp.nombre} ${emp.apellido}</td>
+                                <td>${dniMostrar}</td>
+                                <td>${telefonoMostrar}</td>
+                                <td>${emp.puesto}</td>
+                                <td>${emp.correoEmpresarial}</td>
+                                <td class="acciones">
+                                    <button class="btn-editar" data-id="${emp.idEmpleado}">Editar</button>
+                                    <button class="btn-eliminar" data-id="${emp.idEmpleado}">Eliminar</button>
+                                </td>
+                            </tr>
+                        `;
+                        tablaEmpleados.insertAdjacentHTML("beforeend", fila);
                     });
+                })
+                .catch(err => {
+                    console.error(err);
+                    tablaEmpleados.innerHTML = `
+                        <tr><td colspan="7" style="text-align:center; color:red;">
+                            Error al cargar empleados.
+                        </td></tr>`;
+                });
+        }
+
+        // --- FUNCIÓN Resetear formulario ---
+        function resetearFormulario() {
+            form.reset();
+            idEmpleadoInput.value = "";
+            modoEdicion = false;
+            btnGuardar.textContent = "Agregar Empleado";
+            btnCancelar.style.display = "none";
+            buscarIdInput.value = "";
+        }
+
+        // --- FUNCIÓN Cargar para editar (MODIFICADA) ---
+        function cargarEmpleadoParaEditar(id) {
+            fetch(`${API_URL}/${id}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Empleado no encontrado");
+                    return res.json();
+                })
+                .then(emp => {
+                    idEmpleadoInput.value = emp.idEmpleado;
+                    nombreInput.value = emp.nombre;
+                    apellidoInput.value = emp.apellido;
+                    correoInput.value = emp.correoEmpresarial;
+                    puestoInput.value = emp.puesto;
+                    dniInput.value = emp.dni;
+                    telefonoInput.value = emp.telefono ? emp.telefono : ''; // <-- Carga el teléfono
+
+                    modoEdicion = true;
+                    btnGuardar.textContent = "Actualizar Empleado";
+                    btnCancelar.style.display = "inline";
+
+                    form.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Error al buscar el empleado para editar.");
+                });
+        }
+
+        // --- FUNCIÓN Eliminar empleado ---
+        function eliminarEmpleado(id) {
+            if (!confirm(`¿Estás seguro de que quieres eliminar al empleado con ID ${id}?`)) {
+                return;
             }
 
-            // --- Agregar un nuevo empleado ---
-            form.addEventListener("submit", e => {
-                e.preventDefault();
+            fetch(`${API_URL}/${id}/supervisor/${SUPERVISOR_ID}`, {
+                method: "DELETE"
+            })
+                .then(res => {
+                    if (res.status === 403) throw new Error("Acción prohibida.");
+                    if (!res.ok) throw new Error("Error en la solicitud de eliminación.");
 
-                const nuevoEmpleado = {
-                    nombre: document.getElementById("nombre").value.trim(),
-                    apellido: document.getElementById("apellido").value.trim(),
-                    correoEmpresarial: document.getElementById("correo").value.trim(),
-                    puesto: document.getElementById("puesto").value.trim()
-                };
-
-                fetch("http://localhost:8085/api/empleados", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(nuevoEmpleado)
+                    alert("Empleado eliminado correctamente");
+                    cargarEmpleados();
+                    resetearFormulario();
                 })
-                    .then(res => {
-                        if (!res.ok) throw new Error("Error al agregar empleado");
-                        return res.json();
-                    })
-                    .then(() => {
-                        form.reset();        // Limpia el formulario
-                        cargarEmpleados();   // Recarga la tabla
-                        alert("Empleado agregado correctamente");
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Error al agregar el empleado");
-                    });
-            });
+                .catch(err => {
+                    console.error(err);
+                    alert(`Error al eliminar el empleado: ${err.message}`);
+                });
+        }
 
-            // --- Cargar lista al iniciar ---
-            cargarEmpleados();
+        // --- FUNCIÓN Obtener datos del formulario (MODIFICADA) ---
+        function getDatosDelFormulario() {
+            return {
+                nombre: nombreInput.value.trim(),
+                apellido: apellidoInput.value.trim(),
+                correoEmpresarial: correoInput.value.trim(),
+                puesto: puestoInput.value.trim(),
+                dni: dniInput.value.trim(),
+                telefono: telefonoInput.value.trim(), // <-- Envía el teléfono
+                supervisor: {
+                    idSupervisor: parseInt(SUPERVISOR_ID)
+                }
+            };
+        }
+
+        // --- EVENT LISTENER: Submit del Formulario (Crear O Actualizar) ---
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const empleadoData = getDatosDelFormulario();
+
+            let url = API_URL;
+            let method = "POST";
+
+            if (modoEdicion) {
+                const id = idEmpleadoInput.value;
+                url = `${API_URL}/${id}/supervisor/${SUPERVISOR_ID}`;
+                method = "PUT";
+            }
+
+            fetch(url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(empleadoData)
+            })
+                .then(res => {
+                    if (res.status === 403) throw new Error("Acción prohibida.");
+                    if (!res.ok) {
+                        throw new Error(modoEdicion ? "Error al actualizar" : "Error al agregar. ¿El correo o DNI ya existe?");
+                    }
+                    return res.json();
+                })
+                .then(() => {
+                    alert(modoEdicion ? "Empleado actualizado" : "Empleado agregado");
+                    resetearFormulario();
+                    cargarEmpleados();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert(`Error: ${err.message}`);
+                });
         });
-    </script>
+
+        // --- EVENT LISTENER: Clicks en la Tabla ---
+        tablaEmpleados.addEventListener("click", (e) => {
+            if (e.target.classList.contains("btn-editar")) {
+                const id = e.target.dataset.id;
+                cargarEmpleadoParaEditar(id);
+            }
+            if (e.target.classList.contains("btn-eliminar")) {
+                const id = e.target.dataset.id;
+                eliminarEmpleado(id);
+            }
+        });
+
+        // --- EVENT LISTENERS: Botones de Búsqueda y Formateo ---
+        btnBuscar.addEventListener("click", () => {
+            const id = buscarIdInput.value.trim();
+            if (id) {
+                cargarEmpleadoParaEditar(id);
+            } else {
+                alert("Por favor, ingresa un ID para buscar.");
+            }
+        });
+
+        btnFormatear.addEventListener("click", resetearFormulario);
+        btnCancelar.addEventListener("click", resetearFormulario);
+
+        // --- Carga inicial ---
+        cargarEmpleados();
+    });
+</script>
 
 </body>
 </html>

@@ -17,10 +17,10 @@ public class EmpleadoController {
     @Autowired
     private EmpleadoService empleadoService;
 
-    // --- Obtener todos los empleados ---
-    @GetMapping
-    public List<Empleado> listarEmpleados() {
-        return empleadoService.listarEmpleados();
+    // --- Obtener todos los empleados del supervisor ---
+    @GetMapping("/supervisor/{idSupervisor}")
+    public List<Empleado> listarEmpleadosPorSupervisor(@PathVariable Integer idSupervisor) {
+        return empleadoService.listarEmpleadosPorSupervisor(idSupervisor);
     }
 
     // --- Obtener empleado por ID ---
@@ -50,27 +50,62 @@ public class EmpleadoController {
     }
 
     // --- Actualizar empleado existente ---
-    @PutMapping("/{id}")
-    public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado) {
-        Optional<Empleado> existente = empleadoService.buscarPorId(id);
-        if (existente.isPresent()) {
-            empleado.setIdEmpleado(id);
-            Empleado actualizado = empleadoService.guardarEmpleado(empleado);
-            return ResponseEntity.ok(actualizado);
-        } else {
+    @PutMapping("/{idEmpleado}/supervisor/{idSupervisor}")
+    public ResponseEntity<Empleado> actualizarEmpleado(
+            @PathVariable Integer idEmpleado,
+            @PathVariable Integer idSupervisor,
+            @RequestBody Empleado empleadoDatos) {
+
+        // 1. Busca al empleado que se quiere editar
+        Optional<Empleado> existenteOptional = empleadoService.buscarPorId(idEmpleado);
+
+        // 2. Si no existe, retorna 404 Not Found
+        if (existenteOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
+        Empleado existente = existenteOptional.get();
+
+        // 3. Verificación de seguridad:
+        // ¿El empleado 'existente' pertenece al 'idSupervisor' que hace la petición?
+        if (!existente.getSupervisor().getIdSupervisor().equals(idSupervisor)) {
+            // 4. Si no coincide, es un intento no autorizado
+            return ResponseEntity.status(403).body(null); // 403 Forbidden
+        }
+
+        // 5. Si todo está bien, actualiza los datos
+        empleadoDatos.setIdEmpleado(idEmpleado);
+        // Asegúrate de que la actualización mantenga al supervisor original
+        empleadoDatos.setSupervisor(existente.getSupervisor());
+
+        Empleado actualizado = empleadoService.guardarEmpleado(empleadoDatos);
+        return ResponseEntity.ok(actualizado);
     }
 
     // --- Eliminar empleado por ID ---
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarEmpleado(@PathVariable Integer id) {
-        Optional<Empleado> existente = empleadoService.buscarPorId(id);
-        if (existente.isPresent()) {
-            empleadoService.eliminarEmpleado(id);
-            return ResponseEntity.noContent().build();
-        } else {
+    @DeleteMapping("/{idEmpleado}/supervisor/{idSupervisor}")
+    public ResponseEntity<Void> eliminarEmpleado(
+            @PathVariable Integer idEmpleado,
+            @PathVariable Integer idSupervisor) {
+
+        // 1. Busca al empleado que se quiere eliminar
+        Optional<Empleado> existenteOptional = empleadoService.buscarPorId(idEmpleado);
+
+        // 2. Si no existe, retorna 404 Not Found
+        if (existenteOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
+        Empleado existente = existenteOptional.get();
+
+        // 3. Verificación de seguridad:
+        if (!existente.getSupervisor().getIdSupervisor().equals(idSupervisor)) {
+            // 4. Si no es su empleado, retorna 403 Forbidden
+            return ResponseEntity.status(403).build();
+        }
+
+        // 5. Si es su empleado, lo puede borrar
+        empleadoService.eliminarEmpleado(idEmpleado);
+        return ResponseEntity.noContent().build();
     }
 }

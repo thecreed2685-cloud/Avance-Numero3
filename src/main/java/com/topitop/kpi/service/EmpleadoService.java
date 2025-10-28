@@ -15,8 +15,8 @@ public class EmpleadoService {
     private EmpleadoRepository empleadoRepository;
 
     // --- Listar todos los empleados ---
-    public List<Empleado> listarEmpleados() {
-        return empleadoRepository.findAll();
+    public List<Empleado> listarEmpleadosPorSupervisor(Integer idSupervisor) {
+        return empleadoRepository.findBySupervisorIdSupervisor(idSupervisor);
     }
 
     // --- Buscar empleado por ID ---
