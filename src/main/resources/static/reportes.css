@@ -1,0 +1,97 @@
+main{
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+}
+h1{
+    color: #000;
+}
+.report-analysis__container {
+    padding: 20px;
+}
+
+.report-analysis__container h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 20px;
+}
+
+.analysis-card__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.analysis-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.analysis-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #547BA6;
+    margin-bottom: 15px;
+}
+
+.analysis-text,
+.analysis-list li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4A5568;
+}
+
+.analysis-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.analysis-list li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.analysis-list li::before {
+    content: "•"; /* Usa un círculo como viñeta */
+    color: #547BA6;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+/* Estilos para el botón de descarga */
+.download-button__container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #547BA6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn:hover {
+    background-color: #4A6E99;
+    transform: translateY(-2px);
+}
+
+.download-btn ion-icon {
+    font-size: 1.2rem;
+}

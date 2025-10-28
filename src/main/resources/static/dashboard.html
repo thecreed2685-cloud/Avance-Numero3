@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="estructure.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <aside>
+        <a class="user__container" href="usuario.html">
+            <div class="avatar">
+                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+            </div>
+            Usuario
+        </a>
+        <div class="nav__container">
+            <a class="section" href="dashboard.html">
+                <ion-icon name="stats-chart-outline"></ion-icon>
+                Dashboard
+            </a>
+            <a class="section" href="misiones.html">
+                <ion-icon name="speedometer-outline"></ion-icon>
+                Misiones
+            </a>
+            <a class="section" href="reportes.html">
+                <ion-icon name="reader-outline"></ion-icon>
+                Reportes
+            </a>
+        </div>
+        <div>
+            <a class="section logout" href="index.html">
+                <ion-icon name="log-out-outline"></ion-icon>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    <main>
+        <div class="filters__container">
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="mes" checked>
+                    <span class="radio-circle"></span>
+                    Mes
+                </label>
+            </div>
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="trimestre">
+                    <span class="radio-circle"></span>
+                    Trimestre
+                </label>
+            </div>
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="trimestre">
+                    <span class="radio-circle"></span>
+                    Año
+                </label>
+            </div>
+        </div>
+        <div class="cards__container">
+            <div class="card card1">
+                <h3 class="card__title">Indicadores de Desempeño</h3>
+                <div class="card1__indicators">
+                    <div class="card-content">
+                        <ion-icon name="chatbubbles-outline" class="main-icon"></ion-icon>
+                        <p class="main-text">% de Comunicación</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 93%;"></div>
+                        </div>
+                        <span class="progress-value">93%</span>
+                    </div>
+                    <hr>
+                    <div class="card-content">
+                        <ion-icon name="trophy-outline" class="main-icon"></ion-icon>
+                        <p class="main-text">% de Competitividad</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 88%;"></div>
+                        </div>
+                        <span class="progress-value">88%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card__title">Colaboratividad</h3>
+                <div class="card-content">
+                    <ion-icon name="people-outline" class="main-icon"></ion-icon>
+                    <p class="main-text">Participación en Misiones Conjuntas</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                    <span class="progress-value">75%</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card__title">Eficiencia</h3>
+                <div class="card-content">
+                    <ion-icon name="rocket-outline" class="main-icon"></ion-icon>
+                    <p class="main-text">Reducción de Desperdicio</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%;"></div>
+                    </div>
+                    <span class="progress-value">20%</span>
+                </div>
+            </div>
+        </div>
+        <div class="reports__container">
+            <div class="report report1">
+                <h3>Reduccion de tiempo en la producción de prendas (%)</h3>
+                <div class="report1__content">
+                    <div class="grafico__circular">
+                        <div class="centro"></div>
+                    </div>
+                    <div class="report1__textos">
+                        <div class="box__container">
+                            <div class="box box1"></div>
+                            <p>Equipo 1</p>
+                        </div>
+                        <div class="box__container">
+                            <div class="box box2"></div>
+                            <p>Equipo 2</p>
+                        </div>
+                        <div class="box__container">
+                            <div class="box box3"></div>
+                            <p>Equipo 3</p>
+                        </div>
+                        <div class="box__container">
+                            <div class="box box4"></div>
+                            <p>Equipo 4</p>
+                        </div>
+                    </div>
+                </div>
+                <h3> Mejora en la comunicación entre equipos (%)</h3>
+                <div class="grafico__barras">
+                    <div class="porcentaje__container">
+                        <div class="porcentaje">100%</div>
+                        <div class="porcentaje">90%</div>
+                        <div class="porcentaje">80%</div>
+                        <div class="porcentaje">70%</div>
+                        <div class="porcentaje">60%</div>
+                        <div class="porcentaje">50%</div>
+                        <div class="porcentaje">40%</div>
+                        <div class="porcentaje">30%</div>
+                        <div class="porcentaje">20%</div>
+                        <div class="porcentaje">10%</div>
+                        <div class="porcentaje">0%</div>
+                    </div>
+                    <div class="barra__container">
+                        <div class="barra barra1"></div>
+                        <div class="barra barra2"></div>
+                        <div class="barra barra3"></div>
+                        <div class="barra barra4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="report report2">
+                <h3>Ranking de Productividad</h3>
+                <div class="ranking__list-container">
+                    <!-- Elementos del Ranking generados con JavaScript -->
+                    <div class="ranking-item first-place">
+                        <span class="ranking-position">1</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Juan Pérez</p>
+                        </div>
+                        <span class="ranking-score">9,850 pts</span>
+                    </div>
+                    <div class="ranking-item second-place">
+                        <span class="ranking-position">2</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">María Gómez</p>
+                        </div>
+                        <span class="ranking-score">9,500 pts</span>
+                    </div>
+                    <div class="ranking-item third-place">
+                        <span class="ranking-position">3</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Carlos Ruiz</p>
+                        </div>
+                        <span class="ranking-score">9,120 pts</span>
+                    </div>
+
+                    <!-- Ranking del 4 al 20 (Simulación de 100 empleados para el scroll) -->
+                    <div class="ranking-item">
+                        <span class="ranking-position">4</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Ana Torres</p>
+                        </div>
+                        <span class="ranking-score">8,900 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">5</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Luis Fernández</p>
+                        </div>
+                        <span class="ranking-score">8,700 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">6</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Elena Vargas</p>
+                        </div>
+                        <span class="ranking-score">8,550 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">7</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Ricardo Castro</p>
+                        </div>
+                        <span class="ranking-score">8,300 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">8</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Sara Ramírez</p>
+                        </div>
+                        <span class="ranking-score">8,100 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">9</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Daniel Soto</p>
+                        </div>
+                        <span class="ranking-score">7,950 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">10</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Gabriela Leal</p>
+                        </div>
+                        <span class="ranking-score">7,800 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">11</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Javier Montero</p>
+                        </div>
+                        <span class="ranking-score">7,650 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">12</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Laura Rojas</p>
+                        </div>
+                        <span class="ranking-score">7,500 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">13</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Felipe Núñez</p>
+                        </div>
+                        <span class="ranking-score">7,350 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">14</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Diana Mora</p>
+                        </div>
+                        <span class="ranking-score">7,200 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">15</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Andrés Pardo</p>
+                        </div>
+                        <span class="ranking-score">7,050 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">16</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Valeria Cruz</p>
+                        </div>
+                        <span class="ranking-score">6,900 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">17</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Roberto Peña</p>
+                        </div>
+                        <span class="ranking-score">6,750 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">18</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Carmen Diaz</p>
+                        </div>
+                        <span class="ranking-score">6,600 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">19</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Hugo Márquez</p>
+                        </div>
+                        <span class="ranking-score">6,450 pts</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="ranking-position">20</span>
+                        <div class="ranking-info">
+                            <p class="ranking-name">Isabel Navarro</p>
+                        </div>
+                        <span class="ranking-score">6,300 pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="visual-kpis__container">
+            <!-- FILA SUPERIOR: TARJETAS KPI -->
+            <div class="kpi__grid">
+                <!-- Tarjeta 1: Tasa de Cumplimiento (Gráfico de Anillo) -->
+                <div class="kpi-card compliance-card">
+                    <h3 class="kpi-title">Tasa de Cumplimiento</h3>
+                    <div class="kpi-content">
+                        <div class="compliance-ring" style="--percent: 88;">
+                            <span class="ring-value">88%</span>
+                        </div>
+                        <span class="status-tag optimal1">Meta: 90%</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Productividad Promedio -->
+                <div class="kpi-card productivity-card">
+                    <h3 class="kpi-title">Productividad Promedio</h3>
+                    <div class="kpi-content">
+                        <div class="prod-icons">
+                            <ion-icon name="stats-chart-outline"></ion-icon>
+                            <ion-icon name="stats-chart-outline"></ion-icon>
+                        </div>
+                        <p class="kpi-value">125 prendas/día</p>
+                        <span class="status-tag optimal2">Mejora del 10%</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3: Optimización del Tiempo -->
+                <div class="kpi-card optimization-card">
+                    <h3 class="kpi-title">Optimización del Tiempo</h3>
+                    <div class="kpi-content">
+                        <div class="prod-icons">
+                            <ion-icon class="clock-icon" name="time-outline"></ion-icon>
+                        </div>
+                        <p class="kpi-value">15 prendas/hora</p>
+                        <span class="status-tag optimal3">Mejora del 3%</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4: Calidad General -->
+                <div class="kpi-card quality-card">
+                    <h3 class="kpi-title">Calidad General</h3>
+                    <div class="kpi-content">
+                        <ion-icon name="shield-checkmark-outline" class="quality-icon"></ion-icon>
+                        <p class="kpi-value">1.5% Tasa Defectos</p>
+                        <span class="status-tag optimal4">Óptimo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILA INFERIOR: GRÁFICOS -->
+            <div class="charts__grid">
+                <!-- Gráfico 5: Rendimiento Mensual (Líneas) -->
+                <div class="chart-card monthly-performance">
+                    <h3 class="chart-title">Rendimiento Mensual (Producción)</h3>
+                    <!-- Contenedor para el gráfico de líneas (Simulado) -->
+                    <div class="line-chart-simulation">
+                        <div class="chart">
+                            <div class="chart-y-axis">
+                                <span>100%</span>
+                                <span>90%</span>
+                                <span>80%</span>
+                                <span>70%</span>
+                                <span>60%</span>
+                                <span>50%</span>
+                                <span>40%</span>
+                                <span>30%</span>
+                                <span>20%</span>
+                                <span>10%</span>
+                                <span>0%</span>
+                            </div>
+                            <div class="chart-area">
+                                <svg viewBox="0 0 114 100" preserveAspectRatio="none">
+                                    <!-- Línea de tendencia (puntos simulados) -->
+                                    <polyline points="2,90 12,50 22,59 32,40 42,35 52,15 62,20 72,30 82,40 92,50 102,40 112,20" fill="none" stroke="#007BFF" stroke-width="2"/>
+                                    <!-- Puntos de datos (simulados) -->
+                                    <circle cx="2" cy="90" r="2" fill="#007BFF"/>
+                                    <circle cx="12" cy="50" r="2" fill="#007BFF"/>
+                                    <circle cx="22" cy="60" r="2" fill="#007BFF"/>
+                                    <circle cx="32" cy="40" r="2" fill="#007BFF"/>
+                                    <circle cx="42" cy="35" r="2" fill="#007BFF"/>
+                                    <circle cx="52" cy="15" r="2" fill="#007BFF"/>
+                                    <circle cx="62" cy="20" r="2" fill="#007BFF"/>
+                                    <circle cx="72" cy="30" r="2" fill="#007BFF"/>
+                                    <circle cx="82" cy="40" r="2" fill="#007BFF"/>
+                                    <circle cx="92" cy="50" r="2" fill="#007BFF"/>
+                                    <circle cx="102" cy="40" r="2" fill="#007BFF"/>
+                                    <circle cx="112" cy="20" r="2" fill="#007BFF"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="chart-x-axis">
+                            <span>Ene</span>
+                            <span>Feb</span>
+                            <span>Mar</span>
+                            <span>Abr</span>
+                            <span>May</span>
+                            <span>Jun</span>
+                            <span>Jul</span>
+                            <span>Ago</span>
+                            <span>Sep</span>
+                            <span>Oct</span>
+                            <span>Nov</span>
+                            <span>Dic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico 6: Estado de Misiones Global (Anillo de Donut) -->
+                <div class="chart-card mission-status">
+                    <h3 class="chart-title">Estado de Misiones Global</h3>
+                    <div class="donut-chart-simulation">
+                        <div class="donut-ring" style="--completed: 70; --progress: 30;">
+                            <div class="donut-center"></div>
+                        </div>
+                        <div class="donut-legend">
+                            <div class="legend-item"><span class="legend-color completed"></span>Completadas (70%)</div>
+                            <div class="legend-item"><span class="legend-color in-progress"></span>En Progreso (30%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="estructure.css">
+    <link rel="stylesheet" href="reportes.css">
+</head>
+<body>
+    <aside>
+        <a class="user__container" href="usuario.html">
+            <div class="avatar">
+                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+            </div>
+            Usuario
+        </a>
+        <div class="nav__container">
+            <a class="section" href="dashboard.html">
+                <ion-icon name="stats-chart-outline"></ion-icon>
+                Dashboard
+            </a>
+            <a class="section" href="misiones.html">
+                <ion-icon name="speedometer-outline"></ion-icon>
+                Misiones
+            </a>
+            <a class="section" href="reportes.html">
+                <ion-icon name="reader-outline"></ion-icon>
+                Reportes
+            </a>
+        </div>
+        <div>
+            <a class="section logout" href="index.html">
+                <ion-icon name="log-out-outline"></ion-icon>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    <main>
+        <div class="filters__container">
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="mes">
+                    <span class="radio-circle"></span>
+                    Mes
+                </label>
+            </div>
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="trimestre" checked>
+                    <span class="radio-circle"></span>
+                    Trimestre
+                </label>
+            </div>
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="trimestre">
+                    <span class="radio-circle"></span>
+                    Año
+                </label>
+            </div>
+        </div>
+        <section class="report-analysis__container reporte-mensual">
+            <h2>Análisis del Reporte de Junio</h2>
+            <div class="analysis-card__grid">
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Rendimiento General</h3>
+                    <p class="analysis-text">El equipo de Producción ha mostrado un rendimiento consistente este mes. Se ha notado un incremento del **15%** en la productividad de prendas por hora, superando la meta establecida del 10%. La tasa de defectos se ha mantenido en un bajo 1.5%, lo que indica una sólida calidad en los procesos.</p>
+                </div>
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Puntos Destacados</h3>
+                    <ul class="analysis-list">
+                        <li>La misión de "Control de Calidad en el Proceso" ha sido completada por el 95% de los trabajadores, un claro indicador de la dedicación a la excelencia.</li>
+                        <li>La participación en el programa de "Mejora Continua" ha aumentado un 40% en comparación con el mes anterior.</li>
+                        <li>Los nuevos empleados en el área han alcanzado su objetivo de productividad en un tiempo récord, demostrando la efectividad de la capacitación inicial.</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Áreas de Mejora</h3>
+                    <ul class="analysis-list">
+                        <li>El tiempo de "Corte Eficiente de Telas" puede optimizarse, ya que aún hay una variabilidad del **8%** en el desperdicio de tela entre los distintos turnos.</li>
+                        <li>Se ha detectado una leve disminución en la colaboración entre turnos, lo que podría afectar la continuidad de las tareas.</li>
+                        <li>La misión de "Uso y Cuidado de la Maquinaria" mostró una tasa de cumplimiento del 70%, sugiriendo la necesidad de un recordatorio o incentivo para su cumplimiento.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="report-analysis__container reporte-mensual">
+            <h2>Análisis del Reporte de Mayo</h2>
+            <div class="analysis-card__grid">
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Rendimiento General</h3>
+                    <p class="analysis-text">La tendencia positiva continúa. La productividad por hora se incrementó en un **17%** con respecto al inicio del trimestre, superando las expectativas. La tasa de defectos se redujo ligeramente a 1.2%, demostrando que los esfuerzos en calidad están dando frutos.</p>
+                </div>
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Puntos Destacados</h3>
+                    <ul class="analysis-list">
+                        <li>El cumplimiento de la misión "Uso y Cuidado de la Maquinaria" ha mejorado notablemente, alcanzando un **85%** de participación, un resultado directo de los recordatorios semanales.</li>
+                        <li>Se ha implementado con éxito una nueva iniciativa para la **comunicación entre turnos**, lo que ha resultado en una mejora del 15% en la continuidad de los procesos.</li>
+                        <li>Dos equipos de producción han batido récords de velocidad sin sacrificar la calidad, motivando a todo el departamento.</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Áreas de Mejora</h3>
+                    <ul class="analysis-list">
+                        <li>Aunque la variabilidad en el "Corte Eficiente de Telas" ha disminuido al **6%**, aún existe potencial para estandarizar el proceso y reducir el desperdicio.</li>
+                        <li>Se identificó una nueva área de oportunidad en la **velocidad de empaquetado y control de inventario**, la cual necesita ser optimizada para evitar cuellos de botella.</li>
+                        <li>La participación en la misión de "Mantenimiento Preventivo" es del 65%, una cifra que necesita ser impulsada en el próximo mes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="report-analysis__container reporte-mensual">
+            <h2>Análisis del Reporte de Abril</h2>
+            <div class="analysis-card__grid">
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Rendimiento General</h3>
+                    <p class="analysis-text">Cerrando el trimestre, el equipo ha alcanzado un **incremento total del 20%** en la productividad, excediendo con creces la meta trimestral. La tasa de defectos finalizó en un mínimo histórico del 0.9%, reflejando una excelencia operativa sostenida.</p>
+                </div>
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Puntos Destacados</h3>
+                    <ul class="analysis-list">
+                        <li>La variabilidad en el desperdicio de tela se ha reducido a solo el **4%**, gracias a la implementación de las mejores prácticas y la capacitación continua.</li>
+                        <li>La tasa de cumplimiento en la misión de "Mantenimiento Preventivo" subió a un 90%, lo que ha minimizado las fallas de maquinaria.</li>
+                        <li>La iniciativa de "Comunicación entre Turnos" ha sido un éxito total, recibiendo elogios del 95% de los empleados en la encuesta de satisfacción.</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3 class="analysis-title">Áreas de Mejora</h3>
+                    <ul class="analysis-list">
+                        <li>La optimización del proceso de **empaquetado e inventario** es el próximo gran desafío. El análisis de datos sugiere una oportunidad para un **25% de reducción** en el tiempo de ciclo.</li>
+                        <li>Se debe planificar la capacitación en nuevas tecnologías para la **gestión de la cadena de suministro**, ya que se espera su implementación en el próximo trimestre.</li>
+                        <li>La rotación del personal en el área de corte necesita ser monitoreada para mantener la calidad y la experiencia.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="download-button__container">
+                <button id="download-report-btn" class="download-btn">
+                    <ion-icon name="cloud-download-outline"></ion-icon>
+                    Descargar como PDF
+                </button>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

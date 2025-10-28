@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="estructure.css">
+    <link rel="stylesheet" href="misiones.css">
+</head>
+<body>
+    <aside>
+        <a class="user__container" href="usuario.html">
+            <div class="avatar">
+                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+            </div>
+            Usuario
+        </a>
+        <div class="nav__container">
+            <a class="section" href="dashboard.html">
+                <ion-icon name="stats-chart-outline"></ion-icon>
+                Dashboard
+            </a>
+            <a class="section" href="misiones.html">
+                <ion-icon name="speedometer-outline"></ion-icon>
+                Misiones
+            </a>
+            <a class="section" href="reportes.html">
+                <ion-icon name="reader-outline"></ion-icon>
+                Reportes
+            </a>
+        </div>
+        <div>
+            <a class="section logout" href="index.html">
+                <ion-icon name="log-out-outline"></ion-icon>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    <main>
+        <div class="filters__container">
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="mes" checked>
+                    <span class="radio-circle"></span>
+                    Mes
+                </label>
+            </div>
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="trimestre">
+                    <span class="radio-circle"></span>
+                    Trimestre
+                </label>
+            </div>
+            <div class="filter">
+                <label class="custom-radio">
+                    <input type="radio" name="etapa" value="trimestre">
+                    <span class="radio-circle"></span>
+                    Año
+                </label>
+            </div>
+        </div>
+        <section class="missions__container">
+            <h2>Misiones Asignadas</h2>
+
+            <div class="mission-cards__grid">
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="cut-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Corte Eficiente de Telas</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>160/200 metros</span>
+                            <span>Progreso: 80%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="layers-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Productividad de Costura Diaria</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 60%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>90/150 prendas</span>
+                            <span>Progreso: 60%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Control de Calidad</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>50/50 prendas inspeccionadas</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="hammer-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Uso y Cuidado de la Maquinaria</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 50%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>50% lista de chequeo</span>
+                            <span>Progreso: 50%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="timer-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Optimización del Tiempo</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 70%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>Tiempo promedio: 7 min</span>
+                            <span>Progreso: 70%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="bulb-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Participación en Mejora Continua</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 25%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>1/4 ideas propuestas</span>
+                            <span>Progreso: 25%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="archive-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Organización del Área de Trabajo</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>9/10 en auditoría</span>
+                            <span>Progreso: 90%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="school-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Formación en Nuevas Técnicas</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>80% del curso</span>
+                            <span>Progreso: 80%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Colaboración en Equipo</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 50%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>10/20 colaboraciones</span>
+                            <span>Progreso: 50%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="past-missions__container">
+            <h2>Historial de Misiones</h2>
+            <div class="mission-cards__grid">
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="cut-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Corte de Telas (Marzo)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>200/200 metros</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="layers-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Productividad de Costura (Marzo)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>150/150 prendas</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Control de Calidad (Febrero)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>50/50 prendas inspeccionadas</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="hammer-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Cuidado de Maquinaria (Febrero)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>50% lista de chequeo</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission incomplete">
+                    <div class="mission-icon">
+                        <ion-icon name="timer-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Optimización del Tiempo (Enero)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 70%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>70% de la meta</span>
+                            <span>Incompleta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="bulb-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Mejora Continua (Enero)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>4/4 ideas propuestas</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission incomplete">
+                    <div class="mission-icon">
+                        <ion-icon name="archive-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Organización del Área (Diciembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>9/10 en auditoría</span>
+                            <span>90%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="school-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Formación en Técnicas (Diciembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>100% del curso</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Colaboración en Equipo (Noviembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>3/3 colaboraciones</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission incomplete">
+                    <div class="mission-icon">
+                        <ion-icon name="cut-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Corte de Telas (Noviembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 95%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>190/200 metros</span>
+                            <span>95%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="layers-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Productividad de Costura (Octubre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>150/150 prendas</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission incomplete">
+                    <div class="mission-icon">
+                        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Control de Calidad (Octubre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>42/50 prendas inspeccionadas</span>
+                            <span>85%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="hammer-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Cuidado de Maquinaria (Septiembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>Lista de chequeo</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission incomplete">
+                    <div class="mission-icon">
+                        <ion-icon name="timer-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Optimización del Tiempo (Septiembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>90% de la meta</span>
+                            <span>Incompleta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card past-mission completed">
+                    <div class="mission-icon">
+                        <ion-icon name="bulb-outline"></ion-icon>
+                    </div>
+                    <div class="mission-details">
+                        <h3 class="mission-title">Mejora Continua (Septiembre)</h3>
+                        <div class="progress-bar__container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="mission-stats">
+                            <span>2/2 ideas propuestas</span>
+                            <span>Completada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

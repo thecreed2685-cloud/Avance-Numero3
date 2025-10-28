@@ -1,0 +1,82 @@
+/* Estilos del Contenedor de la Cuadrícula */
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Estilos de las Tarjetas de Misión */
+.mission-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 5px solid #547BA6; /* Barra de color de acento */
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mission-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2D3748;
+    margin-top: 0;
+}
+
+.mission-description {
+    font-size: 0.9rem;
+    color: #718096;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Permite que la descripción ocupe el espacio restante */
+}
+
+.mission-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: auto;
+}
+
+.mission-assigned,
+.mission-due {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Estilos de la Barra de Progreso */
+.mission-progress {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    background-color: #E2E8F0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #547BA6;
+    transition: width 0.4s ease-in-out;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #547BA6;
+}
+
+.progress-text.completed {
+    color: #4CAF50; /* Color verde para misiones completadas */
+}

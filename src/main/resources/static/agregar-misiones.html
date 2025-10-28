@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="estructure.css">
+    <link rel="stylesheet" href="portal-admin.css">
+    <link rel="stylesheet" href="misiones-portal-admin.css">
+</head>
+<body>
+    <aside>
+        <a class="user__container" href="usuario-admin.html">
+            <div class="avatar">
+                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+            </div>
+            Supervisor
+        </a>
+        <div class="nav__container">
+            <a class="section" href="portal-admin.html">
+                <ion-icon name="bar-chart-outline"></ion-icon>
+                Estadísticas
+            </a>
+            <a class="section" href="agregar-misiones.html">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                Agregar Misiones
+            </a>
+            <a class="section" href="agregar-empleado.html">
+                <ion-icon name="person-add-outline"></ion-icon>
+                Agregar Empleado
+            </a>
+        </div>
+        <div>
+            <a class="section logout" href="index.html">
+                <ion-icon name="log-out-outline"></ion-icon>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    <main>
+        <section>
+            <h2>Agregar Nueva Misión</h2>
+            <form>
+                <input type="text" placeholder="Título de la misión" required>
+                <textarea placeholder="Descripción de la misión" style="width:calc(100% - 24px); height:100px;"></textarea>
+                <select>
+                    <option value="">Asignar a empleado...</option>
+                    <option value="1">Empleado 1</option>
+                    <option value="2">Empleado 2</option>
+                </select>
+                <button type="submit">Agregar Misión</button>
+            </form>
+        </section>
+        <section id="lista-misiones">
+            <h2>Misiones Asignadas</h2>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h3 class="mission-title">Mejora de la Productividad</h3>
+                    <p class="mission-description">Optimizar el flujo de trabajo en la línea de producción para reducir los tiempos de ciclo y aumentar la eficiencia general.</p>
+                    <div class="mission-details">
+                        <span class="mission-assigned">Asignada a: Equipo A, Juan Pérez</span>
+                        <span class="mission-due">Fecha Límite: 31/10/2025</span>
+                    </div>
+                    <div class="mission-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                        <span class="progress-text">75% Completado</span>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <h3 class="mission-title">Capacitación en Nuevas Herramientas</h3>
+                    <p class="mission-description">Todos los empleados deben completar el curso de capacitación sobre el nuevo software de gestión de inventario.</p>
+                    <div class="mission-details">
+                        <span class="mission-assigned">Asignada a: Todos los empleados</span>
+                        <span class="mission-due">Fecha Límite: 15/11/2025</span>
+                    </div>
+                    <div class="mission-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <span class="progress-text completed">Completada</span>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <h3 class="mission-title">Reducción del Desperdicio</h3>
+                    <p class="mission-description">Implementar un nuevo protocolo para el corte de tela con el objetivo de reducir el desperdicio en un 10%.</p>
+                    <div class="mission-details">
+                        <span class="mission-assigned">Asignada a: Equipo B</span>
+                        <span class="mission-due">Fecha Límite: 30/11/2025</span>
+                    </div>
+                    <div class="mission-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%;"></div>
+                        </div>
+                        <span class="progress-text">40% en Progreso</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

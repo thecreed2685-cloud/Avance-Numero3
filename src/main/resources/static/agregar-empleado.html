@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="estructure.css">
+    <link rel="stylesheet" href="portal-admin.css">
+</head>
+<body>
+    <aside>
+        <a class="user__container" href="usuario-admin.html">
+            <div class="avatar">
+                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+            </div>
+            Supervisor
+        </a>
+        <div class="nav__container">
+            <a class="section" href="portal-admin.html">
+                <ion-icon name="bar-chart-outline"></ion-icon>
+                Estadísticas
+            </a>
+            <a class="section" href="agregar-misiones.html">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                Agregar Misiones
+            </a>
+            <a class="section" href="agregar-empleado.html">
+                <ion-icon name="person-add-outline"></ion-icon>
+                Agregar Empleado
+            </a>
+        </div>
+        <div>
+            <a class="section logout" href="index.html">
+                <ion-icon name="log-out-outline"></ion-icon>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    <main>
+        <section>
+            <h2>Gestión de Empleados</h2>
+            <!-- 🔍 Buscar empleado por ID -->
+            <div class="buscar-id">
+                <input type="number" id="buscarId" placeholder="Buscar por ID">
+                <button id="btnBuscar">Buscar</button>
+                <button id="btnFormatear">Formatear</button>
+            </div>
+
+            <!-- 🧾 Formulario -->
+            <form id="formEmpleado">
+                <input type="hidden" id="idEmpleado"> <!-- Solo para actualización -->
+
+                <div class="form-grid">
+                    <input type="text" id="nombre" placeholder="Nombre" required>
+                    <input type="text" id="apellido" placeholder="Apellido" required>
+                    <input type="email" id="correo" placeholder="Correo empresarial" required>
+                    <input type="text" id="puesto" placeholder="Puesto" required>
+                </div>
+
+                <div class="botones-form">
+                    <button type="submit" id="btnGuardar">Agregar Empleado</button>
+                    <button type="button" id="btnCancelar" style="display:none;">Cancelar</button>
+                </div>
+            </form>
+        </section>
+        <section>
+            <h2>Lista de Empleados</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Puesto</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Aquí se insertarán los empleados dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tablaEmpleados = document.querySelector("table tbody");
+            const form = document.getElementById("formEmpleado");
+
+            // --- Cargar empleados desde el backend ---
+            function cargarEmpleados() {
+                fetch("http://localhost:8085/api/empleados")
+                    .then(res => {
+                        if (!res.ok) throw new Error("Error al obtener empleados");
+                        return res.json();
+                    })
+                    .then(data => {
+                        tablaEmpleados.innerHTML = "";
+                        data.forEach(emp => {
+                            const fila = `
+            <tr>
+              <td>${emp.idEmpleado}</td>
+              <td>${emp.nombre} ${emp.apellido}</td>
+              <td>${emp.puesto}</td>
+              <td>${emp.correoEmpresarial}</td>
+            </tr>
+          `;
+                            tablaEmpleados.insertAdjacentHTML("beforeend", fila);
+                        });
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        tablaEmpleados.innerHTML = `
+          <tr><td colspan="4" style="text-align:center; color:red;">
+            Error al cargar empleados.
+          </td></tr>`;
+                    });
+            }
+
+            // --- Agregar un nuevo empleado ---
+            form.addEventListener("submit", e => {
+                e.preventDefault();
+
+                const nuevoEmpleado = {
+                    nombre: document.getElementById("nombre").value.trim(),
+                    apellido: document.getElementById("apellido").value.trim(),
+                    correoEmpresarial: document.getElementById("correo").value.trim(),
+                    puesto: document.getElementById("puesto").value.trim()
+                };
+
+                fetch("http://localhost:8085/api/empleados", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(nuevoEmpleado)
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Error al agregar empleado");
+                        return res.json();
+                    })
+                    .then(() => {
+                        form.reset();        // Limpia el formulario
+                        cargarEmpleados();   // Recarga la tabla
+                        alert("Empleado agregado correctamente");
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Error al agregar el empleado");
+                    });
+            });
+
+            // --- Cargar lista al iniciar ---
+            cargarEmpleados();
+        });
+    </script>
+
+</body>
+</html>

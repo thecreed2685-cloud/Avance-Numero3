@@ -1,0 +1,121 @@
+span, .mission-icon ion-icon {
+    color: #000;
+}
+.missions__container {
+    padding: 20px;
+}
+.missions__container h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 20px;
+}
+.mission-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+.mission-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.mission-icon {
+    font-size: 2.5rem;
+    color: #4A5568;
+    background-color: #E2E8F0;
+    border-radius: 8px;
+    padding: 10px;
+    margin-right: 15px;
+}
+.mission-details {
+    flex-grow: 1;
+}
+.mission-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 8px;
+}
+
+.progress-bar__container {
+    width: 100%;
+    height: 8px;
+    background-color: #E2E8F0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease-in-out;
+}
+.mission-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #718096;
+    margin-top: 8px;
+}
+
+/* Colores para las barras de progreso */
+.mission-card:nth-child(1) .progress-bar {
+    background-color: #63B3ED;
+}
+.mission-card:nth-child(2) .progress-bar {
+    background-color: #48BB78;
+}
+.mission-card:nth-child(3) .progress-bar {
+    background-color: #F6AD55;
+}
+.mission-card:nth-child(4) .progress-bar {
+    background-color: #001F3F;
+}
+.mission-card:nth-child(5) .progress-bar {
+    background-color: #2ECC40;
+}
+.mission-card:nth-child(6) .progress-bar {
+    background-color: #FC8181;
+}
+.mission-card:nth-child(7) .progress-bar {
+    background-color: #FFDC00;
+}
+.mission-card:nth-child(8) .progress-bar {
+    background-color: #B794F4;
+}
+.mission-card:nth-child(9) .progress-bar {
+    background-color: #4FD1C5;
+}
+.past-missions__container {
+    padding: 20px;
+}
+.past-missions__container h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 20px;
+}
+
+.past-mission {
+    opacity: 0.5;
+}
+.past-mission.incomplete .progress-bar{
+    background-color: #f00;
+}
+.past-mission.completed .progress-bar {
+    background-color: #48BB78;
+}
+.past-mission .mission-title {
+    color: #718096;
+}
+.past-mission .mission-stats {
+    color: #A0AEC0;
+}

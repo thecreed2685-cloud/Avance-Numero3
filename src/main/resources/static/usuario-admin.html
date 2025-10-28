@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="estructure.css">
+    <link rel="stylesheet" href="usuario.css">
+</head>
+<body>
+    <aside>
+        <a class="user__container" href="usuario-admin.html">
+            <div class="avatar">
+                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+            </div>
+            Supervisor
+        </a>
+        <div class="nav__container">
+            <a class="section" href="portal-admin.html">
+                <ion-icon name="bar-chart-outline"></ion-icon>
+                Estadísticas
+            </a>
+            <a class="section" href="agregar-misiones.html">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                Agregar Misiones
+            </a>
+            <a class="section" href="agregar-empleado.html">
+                <ion-icon name="person-add-outline"></ion-icon>
+                Agregar Empleado
+            </a>
+        </div>
+        <div>
+            <a class="section logout" href="index.html">
+                <ion-icon name="log-out-outline"></ion-icon>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+    <main>
+        <section class="user-profile__container">
+            <div class="user-avatar">
+                <div class="img__container">
+                    <img src="https://images.icon-icons.com/2483/PNG/512/user_icon_149851.png">
+                </div>
+                <h2>Juan Pérez</h2>
+                <p>Supervisor</p>
+                <button class="btn-edit">Editar Perfil</button>
+            </div>
+
+            <div class="user-info__grid">
+                <div class="user-card">
+                    <h3>Datos Personales</h3>
+                    <p><strong>Nombre:</strong> Juan Pérez</p>
+                    <p><strong>Fecha de nacimiento:</strong> 15/05/1990</p>
+                    <p><strong>Correo personal:</strong> juanperez@gmail.com</p>
+                    <p><strong>Teléfono:</strong> +51 987654321</p>
+                    <p><strong>Dirección:</strong> Av. Universitaria 123, Lima</p>
+                </div>
+
+                <div class="user-card">
+                    <h3>Datos Laborales</h3>
+                    <p><strong>Correo empresarial:</strong> jperez@empresa.com</p>
+                    <p><strong>Contraseña:</strong> ******** <a href="#">Cambiar</a></p>
+                    <p><strong>Área:</strong> Tecnología de la Información</p>
+                    <p><strong>Supervisor:</strong> María Gómez</p>
+                </div>
+
+                <div class="user-card">
+                    <h3>Información del Contrato</h3>
+                    <p><strong>Fecha de ingreso:</strong> 01/03/2022</p>
+                    <p><strong>Tiempo de trabajo:</strong> 3 años, 6 meses</p>
+                    <p><strong>Fin de contrato:</strong> 01/09/2025</p>
+                    <p><strong>Estado:</strong> Activo</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
