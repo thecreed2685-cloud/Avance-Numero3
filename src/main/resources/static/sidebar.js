@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
         </a>
         <a class="section" href="agregar-misiones.html">
             <ion-icon name="add-circle-outline"></ion-icon>
-            Agregar Misiones
+            Gestionar Misiones
         </a>
         <a class="section" href="agregar-empleado.html">
             <ion-icon name="person-add-outline"></ion-icon>
-            Agregar Empleado
+            Gestionar Empleados
         </a>
     `;
 

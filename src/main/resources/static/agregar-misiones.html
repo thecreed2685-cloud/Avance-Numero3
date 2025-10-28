@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Gestionar Misiones</title>
     <link rel="stylesheet" href="estructure.css">
-    <link rel="stylesheet" href="portal-admin.css">
-    <link rel="stylesheet" href="misiones-portal-admin.css">
+    <link rel="stylesheet" href="portal-admin.css"> <!-- Reutilizamos estilos base -->
+    <link rel="stylesheet" href="misiones-portal-admin.css"> <!-- Estilos específicos -->
+    <!-- El bloque <style> ha sido eliminado -->
 </head>
 <body>
 <aside>
@@ -42,72 +43,292 @@
         </a>
     </div>
 </aside>
-    <main>
-        <section>
-            <h2>Agregar Nueva Misión</h2>
-            <form>
-                <input type="text" placeholder="Título de la misión" required>
-                <textarea placeholder="Descripción de la misión" style="width:calc(100% - 24px); height:100px;"></textarea>
-                <select>
-                    <option value="">Asignar a empleado...</option>
-                    <option value="1">Empleado 1</option>
-                    <option value="2">Empleado 2</option>
+<main>
+    <section>
+        <h2>Agregar/Editar Misión</h2>
+        <form id="formMision">
+            <input type="hidden" id="idMision">
+            <div class="form-grid-misiones">
+                <input type="text" id="nombreMision" placeholder="Título de la misión" required>
+                <input type="text" id="objetivoMision" placeholder="Objetivo conciso">
+                <textarea id="descripcionMision" placeholder="Descripción detallada (Opcional)"></textarea>
+                <div>
+                    <label for="fechaInicio">Fecha Inicio <span class="label-opcional">(Opcional)</span></label>
+                    <input type="datetime-local" id="fechaInicio">
+                </div>
+                <div>
+                    <label for="fechaFin">Fecha Fin <span class="label-opcional">(Opcional)</span></label>
+                    <input type="datetime-local" id="fechaFin">
+                </div>
+                <div>
+                    <label for="puntajeMision">Puntaje <span class="label-opcional">(Opcional)</span></label>
+                    <input type="number" id="puntajeMision" placeholder="Ej: 100" min="0">
+                </div>
+                <select id="empleadoAsignado">
+                    <option value="">Asignar a empleado... (Opcional)</option>
                 </select>
-                <button type="submit">Agregar Misión</button>
-            </form>
-        </section>
-        <section id="lista-misiones">
-            <h2>Misiones Asignadas</h2>
-            <div class="mission-grid">
-                <div class="mission-card">
-                    <h3 class="mission-title">Mejora de la Productividad</h3>
-                    <p class="mission-description">Optimizar el flujo de trabajo en la línea de producción para reducir los tiempos de ciclo y aumentar la eficiencia general.</p>
-                    <div class="mission-details">
-                        <span class="mission-assigned">Asignada a: Equipo A, Juan Pérez</span>
-                        <span class="mission-due">Fecha Límite: 31/10/2025</span>
-                    </div>
-                    <div class="mission-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%;"></div>
-                        </div>
-                        <span class="progress-text">75% Completado</span>
-                    </div>
-                </div>
-
-                <div class="mission-card">
-                    <h3 class="mission-title">Capacitación en Nuevas Herramientas</h3>
-                    <p class="mission-description">Todos los empleados deben completar el curso de capacitación sobre el nuevo software de gestión de inventario.</p>
-                    <div class="mission-details">
-                        <span class="mission-assigned">Asignada a: Todos los empleados</span>
-                        <span class="mission-due">Fecha Límite: 15/11/2025</span>
-                    </div>
-                    <div class="mission-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 100%;"></div>
-                        </div>
-                        <span class="progress-text completed">Completada</span>
-                    </div>
-                </div>
-
-                <div class="mission-card">
-                    <h3 class="mission-title">Reducción del Desperdicio</h3>
-                    <p class="mission-description">Implementar un nuevo protocolo para el corte de tela con el objetivo de reducir el desperdicio en un 10%.</p>
-                    <div class="mission-details">
-                        <span class="mission-assigned">Asignada a: Equipo B</span>
-                        <span class="mission-due">Fecha Límite: 30/11/2025</span>
-                    </div>
-                    <div class="mission-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 40%;"></div>
-                        </div>
-                        <span class="progress-text">40% en Progreso</span>
-                    </div>
-                </div>
+                <select id="estadoMision" style="display: none;">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Activa">Activa</option>
+                    <option value="Finalizada">Finalizada</option>
+                    <option value="Cancelada">Cancelada</option>
+                </select>
             </div>
-        </section>
-    </main>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="sidebar.js"></script>
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" id="btnGuardarMision">Agregar Misión</button>
+                <button type="button" id="btnCancelarMision" style="display: none;">Cancelar</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="lista-misiones-section">
+        <h2>Misiones Creadas por Mí</h2>
+        <div class="mission-grid" id="mision-cards-container">
+            <p>Cargando misiones...</p>
+        </div>
+    </section>
+</main>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="sidebar.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const usuarioJSON = sessionStorage.getItem("usuarioLogueado");
+        let SUPERVISOR_ID = null;
+        let supervisorData = null;
+        if (usuarioJSON) {
+            const usuario = JSON.parse(usuarioJSON);
+            if (usuario.esSupervisor && usuario.idSupervisor) {
+                SUPERVISOR_ID = usuario.idSupervisor;
+                supervisorData = { idSupervisor: SUPERVISOR_ID };
+            }
+        }
+        if (!SUPERVISOR_ID) return;
+
+        const API_BASE_URL = "http://localhost:8085";
+        const API_MISIONES = `${API_BASE_URL}/api/misiones`;
+        const API_EMPLEADOS = `${API_BASE_URL}/api/empleados`;
+
+        const form = document.getElementById("formMision");
+        const idMisionInput = document.getElementById("idMision");
+        const nombreInput = document.getElementById("nombreMision");
+        const objetivoInput = document.getElementById("objetivoMision");
+        const descripcionInput = document.getElementById("descripcionMision");
+        const fechaInicioInput = document.getElementById("fechaInicio");
+        const fechaFinInput = document.getElementById("fechaFin");
+        const puntajeInput = document.getElementById("puntajeMision");
+        const empleadoSelect = document.getElementById("empleadoAsignado");
+        const estadoSelect = document.getElementById("estadoMision");
+        const misionCardsContainer = document.getElementById("mision-cards-container");
+        const btnGuardar = document.getElementById("btnGuardarMision");
+        const btnCancelar = document.getElementById("btnCancelarMision");
+
+        let modoEdicionMision = false;
+        let empleadosMap = new Map();
+
+        // --- Formateador de Fecha Simple ---
+        function formatShortDate(isoString) {
+            if (!isoString) return 'N/A';
+            try {
+                return new Date(isoString).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            } catch (e) { return 'Inválida'; }
+        }
+
+
+        async function cargarEmpleadosSelect() {
+            try {
+                const response = await fetch(`${API_EMPLEADOS}/supervisor/${SUPERVISOR_ID}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const empleados = await response.json();
+                empleadoSelect.innerHTML = '<option value="">Asignar a empleado... (Opcional)</option>';
+                empleadosMap.clear();
+                empleados.forEach(emp => {
+                    const option = document.createElement("option");
+                    option.value = emp.idEmpleado;
+                    const nombreCompleto = `${emp.nombre} ${emp.apellido}`;
+                    option.textContent = `${nombreCompleto} (ID: ${emp.idEmpleado})`;
+                    empleadoSelect.appendChild(option);
+                    empleadosMap.set(emp.idEmpleado, nombreCompleto);
+                });
+                await cargarMisiones();
+            } catch (err) {
+                console.error("Error al cargar empleados:", err);
+                empleadoSelect.innerHTML = '<option value="">Error al cargar</option>';
+                empleadoSelect.disabled = true;
+                await cargarMisiones();
+            }
+        }
+
+        async function cargarMisiones() {
+            misionCardsContainer.innerHTML = "<p>Cargando misiones...</p>";
+            try {
+                const response = await fetch(`${API_MISIONES}/supervisor/${SUPERVISOR_ID}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const misiones = await response.json();
+                misionCardsContainer.innerHTML = "";
+                if (misiones.length === 0) {
+                    misionCardsContainer.innerHTML = `<p>No has creado ninguna misión.</p>`;
+                    return;
+                }
+                misiones.forEach(mision => {
+                    let nombreAsignado = 'Sin asignar';
+                    const empleadoIdAsignado = mision.empleadoAsignado ? mision.empleadoAsignado.idEmpleado : null;
+                    if (empleadoIdAsignado && empleadosMap.has(empleadoIdAsignado)) {
+                        nombreAsignado = empleadosMap.get(empleadoIdAsignado);
+                    } else if (empleadoIdAsignado) {
+                        nombreAsignado = `ID: ${empleadoIdAsignado}`;
+                    }
+
+                    // --- **CAMBIO AQUÍ: Añadir Fecha Inicio** ---
+                    const fechaInicioFormato = formatShortDate(mision.fechaInicio);
+                    const fechaFinFormato = formatShortDate(mision.fechaFin);
+                    // --- FIN DEL CAMBIO ---
+
+                    const puntajeMostrar = mision.puntajeMision !== null ? mision.puntajeMision : 'N/A';
+                    const estadoMostrar = mision.estado || 'Pendiente';
+                    let progreso = 0;
+                    if(estadoMostrar === 'Finalizada') progreso = 100;
+                    else if (estadoMostrar === 'Activa') progreso = 50;
+
+                    const cardHTML = `
+                            <div class="mission-card">
+                                <h3 class="mission-title">${mision.nombreMision}</h3>
+                                <p class="mission-description">${mision.descripcion || 'Sin descripción.'}</p>
+                                <div class="mission-details">
+                                    <span class="mission-assigned">Asignada a: <strong>${nombreAsignado}</strong></span>
+                                    <!-- **CAMBIO AQUÍ: Mostrar Fecha Inicio** -->
+                                    <span class="mission-due">
+                                        Inicio: ${fechaInicioFormato}<br>
+                                        Fin: ${fechaFinFormato}<br>
+                                        Estado: <strong>${estadoMostrar}</strong><br>
+                                        Pts: ${puntajeMostrar}
+                                    </span>
+                                    <!-- FIN DEL CAMBIO -->
+                                </div>
+                                ${ progreso > 0 ? `<div class="mission-progress"><div class="progress-bar"><div class="progress-fill" style="width: ${progreso}%;"></div></div><span class="progress-text">${progreso}%</span></div>` : ''}
+                                <div class="mission-card-actions">
+                                    <button class="btn-editar-mision" data-id="${mision.idMision}">Editar</button>
+                                    <button class="btn-eliminar-mision" data-id="${mision.idMision}">Eliminar</button>
+                                </div>
+                            </div>
+                         `;
+                    misionCardsContainer.insertAdjacentHTML("beforeend", cardHTML);
+                });
+            } catch (err) {
+                console.error("Error al cargar misiones:", err);
+                misionCardsContainer.innerHTML = `<p style="color:red;">Error al cargar misiones.</p>`;
+            }
+        }
+
+        function resetearFormularioMision() {
+            form.reset();
+            idMisionInput.value = "";
+            modoEdicionMision = false;
+            btnGuardar.textContent = "Agregar Misión";
+            btnCancelar.style.display = "none";
+            estadoSelect.style.display = "none";
+            empleadoSelect.value = "";
+        }
+
+        function formatearParaInputDateTime(fechaIsoString) {
+            if (!fechaIsoString) return "";
+            try {
+                const fecha = new Date(fechaIsoString);
+                if (isNaN(fecha)) return "";
+                fecha.setMinutes(fecha.getMinutes() - fecha.getTimezoneOffset());
+                return fecha.toISOString().slice(0, 16);
+            } catch (e) { return ""; }
+        }
+
+        async function cargarMisionParaEditar(id) {
+            try {
+                const response = await fetch(`${API_MISIONES}/${id}`);
+                if (!response.ok) throw new Error('Misión no encontrada');
+                const mision = await response.json();
+                idMisionInput.value = mision.idMision;
+                nombreInput.value = mision.nombreMision;
+                objetivoInput.value = mision.objetivo || "";
+                descripcionInput.value = mision.descripcion || "";
+                fechaInicioInput.value = formatearParaInputDateTime(mision.fechaInicio);
+                fechaFinInput.value = formatearParaInputDateTime(mision.fechaFin);
+                puntajeInput.value = mision.puntajeMision !== null ? mision.puntajeMision : "";
+                const empleadoId = mision.empleadoAsignado ? mision.empleadoAsignado.idEmpleado : "";
+                empleadoSelect.value = empleadoSelect.querySelector(`option[value="${empleadoId}"]`) ? empleadoId : "";
+                estadoSelect.value = mision.estado || "Pendiente";
+                modoEdicionMision = true;
+                btnGuardar.textContent = "Actualizar Misión";
+                btnCancelar.style.display = "inline-block";
+                estadoSelect.style.display = "inline-block";
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (err) {
+                console.error("Error al cargar misión para editar:", err);
+                alert("No se pudo cargar la misión para editar.");
+            }
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const misionData = {
+                nombreMision: nombreInput.value.trim(),
+                objetivo: objetivoInput.value.trim() || null,
+                descripcion: descripcionInput.value.trim() || null,
+                fechaInicio: fechaInicioInput.value ? new Date(fechaInicioInput.value).toISOString() : null,
+                fechaFin: fechaFinInput.value ? new Date(fechaFinInput.value).toISOString() : null,
+                puntajeMision: puntajeInput.value ? parseInt(puntajeInput.value) : null,
+                supervisor: supervisorData,
+                empleadoAsignado: empleadoSelect.value ? { idEmpleado: parseInt(empleadoSelect.value) } : null,
+                estado: modoEdicionMision ? estadoSelect.value : "Pendiente"
+            };
+            if (!misionData.nombreMision) { alert("El título es obligatorio."); nombreInput.focus(); return; }
+            if (misionData.fechaInicio && misionData.fechaFin && misionData.fechaInicio >= misionData.fechaFin) { alert("La fecha fin debe ser posterior."); fechaFinInput.focus(); return; }
+
+            let url = API_MISIONES;
+            let method = "POST";
+            if (modoEdicionMision) {
+                const idMision = idMisionInput.value;
+                url = `${API_MISIONES}/${idMision}/supervisor/${SUPERVISOR_ID}`;
+                method = "PUT";
+                misionData.empleadoAsignado = empleadoSelect.value ? { idEmpleado: parseInt(empleadoSelect.value) } : null;
+            }
+
+            try {
+                btnGuardar.disabled = true;
+                btnGuardar.textContent = modoEdicionMision ? "Actualizando..." : "Agregando...";
+                const response = await fetch(url, { method: method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(misionData) });
+                if (!response.ok) { const errorText = await response.text(); throw new Error(errorText || `Error ${response.status}`); }
+                alert(modoEdicionMision ? "Misión actualizada" : "Misión agregada");
+                resetearFormularioMision();
+                await cargarMisiones();
+            } catch (err) {
+                console.error(`Error al ${modoEdicionMision ? 'actualizar' : 'agregar'}:`, err);
+                alert(`Error: ${err.message}`);
+            } finally {
+                btnGuardar.disabled = false;
+                resetearFormularioMision();
+            }
+        });
+
+        misionCardsContainer.addEventListener("click", async (e) => {
+            const target = e.target;
+            if (target.classList.contains("btn-editar-mision")) { const id = target.dataset.id; await cargarMisionParaEditar(id); }
+            if (target.classList.contains("btn-eliminar-mision")) {
+                const id = target.dataset.id;
+                if (confirm(`¿Eliminar misión ID ${id}?`)) {
+                    try {
+                        const response = await fetch(`${API_MISIONES}/${id}/supervisor/${SUPERVISOR_ID}`, { method: 'DELETE' });
+                        if (!response.ok) { const errorText = await response.text(); throw new Error(errorText || `Error ${response.status}`); }
+                        alert("Misión eliminada");
+                        await cargarMisiones();
+                    } catch (err) { console.error("Error al eliminar:", err); alert(`Error al eliminar: ${err.message}`); }
+                }
+            }
+        });
+
+        btnCancelar.addEventListener("click", resetearFormularioMision);
+        cargarEmpleadosSelect();
+    });
+</script>
 </body>
 </html>
+

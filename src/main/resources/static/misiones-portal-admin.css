@@ -1,7 +1,7 @@
 /* Estilos del Contenedor de la Cuadrícula */
 .mission-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
 }
 
@@ -28,13 +28,13 @@
     font-weight: 700;
     color: #2D3748;
     margin-top: 0;
+    margin-bottom: 10px; /* Añadido espacio inferior */
 }
 
 .mission-description {
     font-size: 0.9rem;
     color: #718096;
     line-height: 1.5;
-    margin-bottom: 15px;
     flex-grow: 1; /* Permite que la descripción ocupe el espacio restante */
 }
 
@@ -42,19 +42,24 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-top: auto;
+    margin-top: auto; /* Empuja detalles hacia abajo si hay espacio */
 }
 
 .mission-assigned,
 .mission-due {
     font-size: 0.85rem;
-    color: #555;
+    color: #4A5568; /* Ligeramente más oscuro */
     font-weight: 500;
 }
+.mission-details strong {
+    color: #2D3748; /* Resaltar datos */
+    font-weight: 600;
+}
+
 
 /* Estilos de la Barra de Progreso */
 .mission-progress {
-    margin-top: 20px;
+    margin-top: 15px; /* Reducido espacio */
 }
 
 .progress-bar {
@@ -69,6 +74,7 @@
     height: 100%;
     background-color: #547BA6;
     transition: width 0.4s ease-in-out;
+    border-radius: 4px; /* Para que el relleno también sea redondeado */
 }
 
 .progress-text {
@@ -79,4 +85,79 @@
 
 .progress-text.completed {
     color: #4CAF50; /* Color verde para misiones completadas */
+}
+
+
+/* --- ESTILOS MOVIDOS DESDE EL HTML --- */
+
+/* Estilos adicionales para inputs de fecha y número */
+.form-grid-misiones {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 15px;
+    margin-bottom: 15px; /* Espacio antes del botón */
+}
+
+/* Ajustes para inputs específicos y selects */
+input[type="datetime-local"],
+input[type="number"],
+select#estadoMision,
+select#empleadoAsignado {
+    color: #2D3748; padding: 12px; border: 1px solid #E2E8F0; border-radius: 8px; width: 100%;
+    box-sizing: border-box; transition: border-color 0.3s, box-shadow 0.3s; background-color: white;
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    /* Flecha SVG para selects */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23547BA6%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat; background-position: right 1rem center; background-size: 0.65em auto;
+    padding-right: 2.5rem; /* Espacio para la flecha */
+}
+
+/* Estilos :focus para inputs y selects */
+input[type="datetime-local"]:focus,
+input[type="number"]:focus,
+select#estadoMision:focus,
+select#empleadoAsignado:focus {
+    border-color: #547BA6; box-shadow: 0 0 0 2px rgba(84, 123, 166, 0.2); outline: none;
+}
+
+/* Textarea */
+#descripcionMision {
+    grid-column: 1 / -1; height: 80px; color: #2D3748; padding: 12px;
+    border: 1px solid #E2E8F0; border-radius: 8px; width: 100%; box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Añadida transición */
+}
+#descripcionMision:focus {
+    border-color: #547BA6; box-shadow: 0 0 0 2px rgba(84, 123, 166, 0.2); outline: none;
+}
+
+/* Labels */
+.label-opcional { font-size: 0.9em; color: #718096; margin-left: 5px; }
+label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9em; color: #4A5568; }
+
+/* Botones de acción en tarjetas */
+.mission-card-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end; /* Alinea botones a la derecha */
+    gap: 8px;
+}
+.mission-card-actions button {
+    padding: 6px 12px; font-size: 0.85em; color: white; border: none;
+    border-radius: 5px; cursor: pointer; transition: background-color 0.2s; font-weight: 500;
+}
+.btn-editar-mision { background-color: #3182CE; } /* Azul */
+.btn-eliminar-mision { background-color: #E53E3E; } /* Rojo */
+.btn-editar-mision:hover { background-color: #2B6CB0; }
+.btn-eliminar-mision:hover { background-color: #C53030; }
+
+/* Botones del formulario */
+#formMision button { color: white; padding: 12px 20px; font-size: 1rem; }
+#btnCancelarMision { background-color: #A0AEC0; }
+#btnCancelarMision:hover { background-color: #718096; }
+
+/* Mensaje de carga/vacío en contenedor de tarjetas */
+#mision-cards-container p {
+    text-align: center; color: #718096; padding: 20px; font-style: italic;
+    /* Asegura que ocupe todo el ancho si es el único elemento */
+    grid-column: 1 / -1;
 }
