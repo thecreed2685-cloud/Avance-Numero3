@@ -28,34 +28,47 @@
         document.querySelector('.form').addEventListener('submit', function(e) {
             e.preventDefault();
             const correo = document.getElementById('usuario').value.trim();
+            sessionStorage.clear(); // Limpia sesión anterior
 
-            // Lógica de roles simple (como la tenías)
             if (correo.endsWith("@empresa.admin.pe")) {
-                // Es un admin/supervisor, busquemos sus datos
+                // --- Lógica de SUPERVISOR ---
                 fetch(`http://localhost:8085/api/supervisores/correo/${correo}`)
                     .then(res => {
                         if (!res.ok) throw new Error('Supervisor no encontrado');
                         return res.json();
                     })
                     .then(supervisor => {
-                        // --- ¡ÉXITO! Guardamos los datos del supervisor ---
-                        sessionStorage.setItem("supervisorId", supervisor.idSupervisor);
-                        sessionStorage.setItem("supervisorNombre", supervisor.nombre);
+                        // Guardamos el supervisor como un objeto de texto
+                        supervisor.esSupervisor = true; // Añadimos una bandera
+                        sessionStorage.setItem("usuarioLogueado", JSON.stringify(supervisor));
 
-                        // Redirigir al portal de admin
-                        window.location.href = "portal-admin.html";
+                        window.location.href = "portal-admin.html"; // O a donde quieras que vaya el admin
                     })
                     .catch(err => {
                         console.error(err);
                         alert("Error: Supervisor no encontrado o el servidor falló.");
                     });
 
-            } else if (correo.endsWith("@empleado.pe")) {
-                // Lógica para empleados (si la tienes)
-                // (Aquí podrías guardar el id del empleado)
-                window.location.href = "dashboard.html";
+            } else if (correo.endsWith("@empresa.com")) {
+                // --- Lógica de EMPLEADO ---
+                fetch(`http://localhost:8085/api/empleados/correo/${correo}`)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Empleado no encontrado');
+                        return res.json();
+                    })
+                    .then(empleado => {
+                        // Guardamos el empleado como un objeto de texto
+                        empleado.esSupervisor = false; // Añadimos una bandera
+                        sessionStorage.setItem("usuarioLogueado", JSON.stringify(empleado));
+
+                        window.location.href = "dashboard.html"; // O a donde quieras que vaya el empleado
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Error: Empleado no encontrado o el servidor falló.");
+                    });
             } else {
-                alert("Correo no reconocido");
+                alert("Correo no reconocido. Use @empresa.com o @empresa.admin.pe");
             }
         });
     </script>

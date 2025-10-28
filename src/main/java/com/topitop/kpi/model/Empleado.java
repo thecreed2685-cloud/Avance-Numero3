@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "empleado")
 public class Empleado {
@@ -16,16 +19,16 @@ public class Empleado {
     private Integer idEmpleado;
 
     @NotBlank
-    @Column(name = "nombre", nullable = false, length = 50)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
     @NotBlank
-    @Column(name = "apellido", nullable = false, length = 50)
+    @Column(name = "apellido", nullable = false, length = 100)
     private String apellido;
 
     @NotBlank
     @Email
-    @Column(name = "correo_empresarial", nullable = false, unique = true, length = 100)
+    @Column(name = "correo_empresarial", nullable = false, unique = true, length = 255)
     private String correoEmpresarial;
 
     @Column(name = "puesto", length = 50)
@@ -36,8 +39,20 @@ public class Empleado {
     @Column(name = "dni", nullable = false, unique = true, length = 8)
     private String dni;
 
-    @Column(name = "telefono", nullable = true, length = 15)
+    @Column(name = "telefono", nullable = true, length = 20)
     private String telefono;
+
+    @Column(name = "foto_url", length = 512)
+    private String fotoUrl;
+
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
+
+    @Column(name = "fecha_ingreso")
+    private LocalDateTime fechaIngreso;
+
+    @Column(name = "estado", length = 50)
+    private String estado;
 
     // Relación con Supervisor
     @ManyToOne
@@ -49,16 +64,8 @@ public class Empleado {
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, String nombre, String apellido, String correoEmpresarial, String puesto, Supervisor supervisor) {
-        this.idEmpleado = idEmpleado;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correoEmpresarial = correoEmpresarial;
-        this.puesto = puesto;
-        this.supervisor = supervisor;
-    }
+    // --- Getters y Setters (Incluyendo los nuevos) ---
 
-    // --- Getters y Setters ---
     public Integer getIdEmpleado() {
         return idEmpleado;
     }
@@ -113,6 +120,38 @@ public class Empleado {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public LocalDateTime getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(LocalDateTime fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Supervisor getSupervisor() {

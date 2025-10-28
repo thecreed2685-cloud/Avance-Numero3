@@ -3,80 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="estructure.css">
     <link rel="stylesheet" href="usuario.css">
+
 </head>
 <body>
     <aside>
-        <a class="user__container" href="usuario.html">
-            <div class="avatar">
+        <!-- 1. Contenedor del Avatar (HTML MODIFICADO) -->
+        <!-- Le añadimos el ID al 'avatar' y al 'user-link' -->
+        <a class="user__container" href="usuario.html" id="sidebar-user-link">
+            <div class="avatar" id="sidebar-avatar">
+                <!-- El JS reemplazará esto -->
                 <ion-icon class="user__icon" name="person-sharp"></ion-icon>
             </div>
-            Usuario
+            <!-- El JS pondrá el nombre aquí -->
+            <span id="sidebar-user-name" style="margin-top: 5px;">...</span>
+            <!-- El JS pondrá el puesto aquí -->
+            <span id="sidebar-user-role" class="sidebar-user-role">...</span>
         </a>
-        <div class="nav__container">
-            <a class="section" href="dashboard.html">
-                <ion-icon name="stats-chart-outline"></ion-icon>
-                Dashboard
-            </a>
-            <a class="section" href="misiones.html">
-                <ion-icon name="speedometer-outline"></ion-icon>
-                Misiones
-            </a>
-            <a class="section" href="reportes.html">
-                <ion-icon name="reader-outline"></ion-icon>
-                Reportes
-            </a>
+
+        <!-- 2. El JS construirá los enlaces de navegación aquí -->
+        <div class="nav__container" id="nav-links-container">
+            <!-- Los enlaces se generarán dinámicamente -->
         </div>
+
+        <!-- 3. El botón de Logout (común para ambos) -->
         <div>
-            <a class="section logout" href="index.html">
+            <a class="section logout" href="index.html" id="logout-button">
                 <ion-icon name="log-out-outline"></ion-icon>
                 Cerrar Sesión
             </a>
         </div>
     </aside>
-
     <main>
         <section class="user-profile__container">
+            <!-- Sección de Avatar (se rellena con JS) -->
             <div class="user-avatar">
+                <!-- CAMBIO: Añadido ID para la imagen -->
                 <div class="img__container">
-                    <img src="https://images.icon-icons.com/2483/PNG/512/user_icon_149851.png">
+                    <img src="https://images.icon-icons.com/2483/PNG/512/user_icon_149851.png" alt="Avatar de usuario" id="profile-img">
                 </div>
-                <h2>Juan Pérez</h2>
-                <p>Analista de Datos</p>
+                <h2 id="profile-name">...</h2>
+                <p id="profile-role">...</p>
                 <button class="btn-edit">Editar Perfil</button>
             </div>
 
+            <!-- Sección de Información (se rellena con JS) -->
             <div class="user-info__grid">
                 <div class="user-card">
                     <h3>Datos Personales</h3>
-                    <p><strong>Nombre:</strong> Juan Pérez</p>
-                    <p><strong>Fecha de nacimiento:</strong> 15/05/1990</p>
-                    <p><strong>Correo personal:</strong> juanperez@gmail.com</p>
-                    <p><strong>Teléfono:</strong> +51 987654321</p>
-                    <p><strong>Dirección:</strong> Av. Universitaria 123, Lima</p>
+                    <p><strong>Nombre:</strong> <span id="data-full-name">...</span></p>
+                    <p><strong>DNI:</strong> <span id="data-dni">...</span></p>
+                    <p><strong>Nacimiento:</strong> <span id="data-nacimiento">...</span></p>
+                    <p><strong>Teléfono:</strong> <span id="data-telefono">...</span></p>
                 </div>
 
                 <div class="user-card">
                     <h3>Datos Laborales</h3>
-                    <p><strong>Correo empresarial:</strong> jperez@empresa.com</p>
-                    <p><strong>Contraseña:</strong> ******** <a href="#">Cambiar</a></p>
-                    <p><strong>Área:</strong> Tecnología de la Información</p>
-                    <p><strong>Supervisor:</strong> María Gómez</p>
+                    <p><strong>Correo:</strong> <span id="data-correo">...</span></p>
+                    <p><strong>Puesto:</strong> <span id="data-puesto">...</span></p>
+                    <p><strong>Estado:</strong> <span id="data-estado">...</span></p>
                 </div>
 
                 <div class="user-card">
                     <h3>Información del Contrato</h3>
-                    <p><strong>Fecha de ingreso:</strong> 01/03/2022</p>
-                    <p><strong>Tiempo de trabajo:</strong> 3 años, 6 meses</p>
-                    <p><strong>Fin de contrato:</strong> 01/09/2025</p>
-                    <p><strong>Estado:</strong> Activo</p>
+                    <p><strong>Ingreso:</strong> <span id="data-ingreso">...</span></p>
+                    <p><strong>Tiempo:</strong> <span id="data-tiempo">...</span></p>
+                    <p><strong>Contrato:</strong> <span id="data-contrato">...</span></p>
                 </div>
             </div>
         </section>
     </main>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- SCRIPT ACTUALIZADO -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Obtener el usuario de la sesión
+            const usuarioJSON = sessionStorage.getItem("usuarioLogueado");
+
+            if (!usuarioJSON) {
+                alert("No se ha iniciado sesión. Redirigiendo al login.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const usuario = JSON.parse(usuarioJSON);
+
+            // 2. Definir los menús
+            const menuSupervisor = `
+                    <a class="section" href="portal-admin.html">
+                        <ion-icon name="bar-chart-outline"></ion-icon>
+                        Estadísticas
+                    </a>
+                    <a class="section" href="agregar-misiones.html">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        Agregar Misiones
+                    </a>
+                    <a class="section" href="agregar-empleado.html">
+                        <ion-icon name="person-add-outline"></ion-icon>
+                        Agregar Empleado
+                    </a>
+                `;
+
+            const menuEmpleado = `
+                    <a class="section" href="dashboard.html">
+                        <ion-icon name="stats-chart-outline"></ion-icon>
+                        Dashboard
+                    </a>
+                    <a class="section" href="misiones.html">
+                        <ion-icon name="speedometer-outline"></ion-icon>
+                        Misiones
+                    </a>
+                    <a class="section" href="reportes.html">
+                        <ion-icon name="reader-outline"></ion-icon>
+                        Reportes
+                    </a>
+                `;
+
+            // --- FUNCIÓN HELPER para formatear fechas ---
+            function formatearFecha(fechaString) {
+                if (!fechaString) return "No registrado";
+                return new Date(fechaString).toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+            }
+
+            // --- FUNCIÓN HELPER para manejar fotos (fallback) ---
+            function obtenerFoto(url, nombre) {
+                if (url) return url;
+                // Si la foto es nula, usa UI Avatars con las iniciales
+                return `https://ui-avatars.com/api/?name=${nombre.replace(' ', '+')}&background=E2E8F0&color=2D3748`;
+            }
+
+            // 3. Rellenar la página (AHORA AMBOS TIENEN LOS MISMOS DATOS)
+
+            const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`;
+            const puestoUsuario = usuario.puesto || (usuario.esSupervisor ? "Supervisor" : "Empleado");
+            const fotoUrl = obtenerFoto(usuario.fotoUrl, nombreCompleto);
+
+            // --- INICIO: ARREGLO DEL ASIDE ---
+
+            // Rellenar Sidebar
+            document.getElementById("nav-links-container").innerHTML = usuario.esSupervisor ? menuSupervisor : menuEmpleado;
+            document.getElementById("sidebar-user-name").textContent = nombreCompleto; // <-- CORREGIDO
+            document.getElementById("sidebar-user-role").textContent = puestoUsuario;  // <-- AÑADIDO
+
+            // Lógica de la foto del Sidebar
+            const avatarContainer = document.getElementById("sidebar-avatar");
+            avatarContainer.innerHTML = `<img src="${fotoUrl}" alt="Foto de perfil de ${nombreCompleto}" class="sidebar-avatar-img">`;
+
+            // --- FIN: ARREGLO DEL ASIDE ---
+
+
+            // Rellenar Perfil Principal
+            document.getElementById("profile-name").textContent = nombreCompleto;
+            document.getElementById("profile-role").textContent = puestoUsuario;
+            document.getElementById("profile-img").src = fotoUrl; // <-- Carga la foto en el perfil
+            document.getElementById("profile-img").alt = `Foto de perfil de ${nombreCompleto}`;
+
+
+            // Rellenar Tarjetas de Datos (con validación por si algún dato es null)
+            document.getElementById("data-full-name").textContent = nombreCompleto;
+            document.getElementById("data-dni").textContent = usuario.dni || "No registrado";
+            document.getElementById("data-nacimiento").textContent = formatearFecha(usuario.fechaNacimiento);
+            document.getElementById("data-telefono").textContent = usuario.telefono || "No registrado";
+            document.getElementById("data-correo").textContent = usuario.correoEmpresarial;
+            document.getElementById("data-puesto").textContent = puestoUsuario;
+            document.getElementById("data-estado").textContent = usuario.estado || "No registrado";
+            document.getElementById("data-ingreso").textContent = formatearFecha(usuario.fechaIngreso);
+            document.getElementById("data-tiempo").textContent = usuario.tiempoTrabajo || "No registrado";
+            document.getElementById("data-contrato").textContent = usuario.esContrato || "No registrado";
+
+            // 4. Limpiar sesión al hacer logout
+            document.getElementById("logout-button").addEventListener("click", () => {
+                sessionStorage.clear();
+            });
+        });
+    </script>
 </body>
 </html>

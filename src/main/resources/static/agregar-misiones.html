@@ -9,34 +9,39 @@
     <link rel="stylesheet" href="misiones-portal-admin.css">
 </head>
 <body>
-    <aside>
-        <a class="user__container" href="usuario-admin.html">
-            <div class="avatar">
-                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
-            </div>
-            Supervisor
+<aside>
+    <!-- Esta sección se rellenará con sidebar.js -->
+    <a class="user__container" href="usuario.html" id="sidebar-user-link">
+        <div class="avatar" id="sidebar-avatar">
+            <!-- El JS reemplazará esto -->
+            <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+        </div>
+        <span id="sidebar-user-name">Supervisor</span>
+        <span id="sidebar-user-role" class="sidebar-user-role"></span>
+    </a>
+    <!-- Esta sección se rellenará con sidebar.js -->
+    <div class="nav__container" id="sidebar-nav-links">
+        <!-- Links por defecto (por si JS falla) -->
+        <a class="section" href="portal-admin.html">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            Estadísticas
         </a>
-        <div class="nav__container">
-            <a class="section" href="portal-admin.html">
-                <ion-icon name="bar-chart-outline"></ion-icon>
-                Estadísticas
-            </a>
-            <a class="section" href="agregar-misiones.html">
-                <ion-icon name="add-circle-outline"></ion-icon>
-                Gestionar Misiones
-            </a>
-            <a class="section" href="agregar-empleado.html">
-                <ion-icon name="person-add-outline"></ion-icon>
-                Gestionar Empleados
-            </a>
-        </div>
-        <div>
-            <a class="section logout" href="index.html">
-                <ion-icon name="log-out-outline"></ion-icon>
-                Cerrar Sesión
-            </a>
-        </div>
-    </aside>
+        <a class="section" href="agregar-misiones.html">
+            <ion-icon name="add-circle-outline"></ion-icon>
+            Gestionar Misiones
+        </a>
+        <a class="section" href="agregar-empleado.html">
+            <ion-icon name="person-add-outline"></ion-icon>
+            Gestionar Empleados
+        </a>
+    </div>
+    <div>
+        <a class="section logout" href="index.html" id="logout-button">
+            <ion-icon name="log-out-outline"></ion-icon>
+            Cerrar Sesión
+        </a>
+    </div>
+</aside>
     <main>
         <section>
             <h2>Agregar Nueva Misión</h2>
@@ -103,5 +108,6 @@
     </main>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="sidebar.js"></script>
 </body>
 </html>

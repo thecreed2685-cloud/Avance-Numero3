@@ -3,91 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Portal del Supervisor</title>
     <link rel="stylesheet" href="estructure.css">
     <link rel="stylesheet" href="portal-admin.css">
 </head>
 <body>
-    <aside>
-        <a class="user__container" href="usuario-admin.html">
-            <div class="avatar">
-                <ion-icon class="user__icon" name="person-sharp"></ion-icon>
-            </div>
-            Supervisor
+<aside>
+    <!-- Esta sección se rellenará con sidebar.js -->
+    <a class="user__container" href="usuario.html" id="sidebar-user-link">
+        <div class="avatar" id="sidebar-avatar">
+            <!-- El JS reemplazará esto -->
+            <ion-icon class="user__icon" name="person-sharp"></ion-icon>
+        </div>
+        <span id="sidebar-user-name">Supervisor</span>
+        <span id="sidebar-user-role" class="sidebar-user-role"></span>
+    </a>
+    <!-- Esta sección se rellenará con sidebar.js -->
+    <div class="nav__container" id="sidebar-nav-links">
+        <!-- Links por defecto (por si JS falla) -->
+        <a class="section" href="portal-admin.html">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            Estadísticas
         </a>
-        <div class="nav__container">
-            <a class="section" href="portal-admin.html">
-                <ion-icon name="bar-chart-outline"></ion-icon>
-                Estadísticas
-            </a>
-            <a class="section" href="agregar-misiones.html">
-                <ion-icon name="add-circle-outline"></ion-icon>
-                Gestionar Misiones
-            </a>
-            <a class="section" href="agregar-empleado.html">
-                <ion-icon name="person-add-outline"></ion-icon>
-                Gestionar Empleados
-            </a>
+        <a class="section" href="agregar-misiones.html">
+            <ion-icon name="add-circle-outline"></ion-icon>
+            Gestionar Misiones
+        </a>
+        <a class="section" href="agregar-empleado.html">
+            <ion-icon name="person-add-outline"></ion-icon>
+            Gestionar Empleados
+        </a>
+    </div>
+    <div>
+        <a class="section logout" href="index.html" id="logout-button">
+            <ion-icon name="log-out-outline"></ion-icon>
+            Cerrar Sesión
+        </a>
+    </div>
+</aside>
+<main>
+    <section>
+        <h2>Lista de Empleados Asignados</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Puesto</th>
+                <th>Correo</th>
+                <!-- CAMBIO AQUÍ -->
+                <th>Teléfono</th>
+            </tr>
+            </thead>
+            <!-- ID AÑADIDO AQUÍ -->
+            <tbody id="tabla-empleados">
+            <!-- El script rellenará esta sección -->
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <h2>Estadísticas</h2>
+        <p>Aquí se mostrarán los gráficos de desempeño y análisis de datos.</p>
+        <div style="height:350px; background:#ecf0f1; border-radius:10px; display:flex; justify-content:center; align-items:center;">
+            <em style="color: #7f8c8d; font-size:1.2em;">Gráficos en construcción...</em>
         </div>
-        <div>
-            <a class="section logout" href="index.html">
-                <ion-icon name="log-out-outline"></ion-icon>
-                Cerrar Sesión
-            </a>
-        </div>
-    </aside>
-    <main>
-        <section>
-            <h2>Lista de Empleados</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Puesto</th>
-                    <th>Correo</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Aquí se insertarán los empleados dinámicamente -->
-                </tbody>
-            </table>
-        </section>
-        <section>
-            <h2>Estadísticas</h2>
-            <p>Aquí se mostrarán los gráficos de desempeño y análisis de datos.</p>
-            <div style="height:350px; background:#ecf0f1; border-radius:10px; display:flex; justify-content:center; align-items:center;">
-                <em style="color: #7f8c8d; font-size:1.2em;">Gráficos en construcción...</em>
-            </div>
-        </section>
-    </main>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const tablaEmpleados = document.getElementById("tabla-empleados"); // id de tu tbody
+    </section>
+</main>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-            fetch("http://localhost:8085/api/empleados")
-                .then(response => response.json())
-                .then(data => {
-                    tablaEmpleados.innerHTML = ""; // limpia lo que había antes
+<!-- Script que construye la barra lateral dinámicamente -->
+<script src="sidebar.js"></script>
 
-                    data.forEach(emp => {
-                        const fila = `
-          <tr>
-            <td>${emp.idEmpleado}</td>
-            <td>${emp.nombre}</td>
-            <td>${emp.apellido}</td>
-            <td>${emp.correoEmpresarial}</td>
-            <td>${emp.puesto}</td>
-          </tr>
-        `;
-                        tablaEmpleados.insertAdjacentHTML("beforeend", fila);
-                    });
-                })
-                .catch(error => console.error("Error al cargar empleados:", error));
-        });
-    </script>
+<!-- SCRIPT CORREGIDO Y ACTUALIZADO -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Obtener el objeto de usuario de la sesión
+        const usuarioLogueadoJSON = sessionStorage.getItem("usuarioLogueado");
+        const usuarioLogueado = usuarioLogueadoJSON ? JSON.parse(usuarioLogueadoJSON) : null;
+
+        // 2. Seguridad: si no hay usuario, o si no es supervisor (no tiene idSupervisor)
+        if (!usuarioLogueado || !usuarioLogueado.idSupervisor) {
+            console.error("No se encontró un supervisor en sessionStorage.");
+            alert("No ha iniciado sesión correctamente como supervisor.");
+            window.location.href = "index.html";
+            return; // Detener ejecución
+        }
+
+        // ¡Este es el ID correcto!
+        const SUPERVISOR_ID = usuarioLogueado.idSupervisor;
+
+        // 3. Obtener el elemento tbody (con el ID que añadimos)
+        const tablaEmpleados = document.getElementById("tabla-empleados");
+
+        if (!tablaEmpleados) {
+            console.error("No se encontró el elemento con ID 'tabla-empleados'");
+            return;
+        }
+
+        // 4. Llamar al endpoint correcto
+        fetch(`http://localhost:8085/api/empleados/supervisor/${SUPERVISOR_ID}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error al cargar empleados: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                tablaEmpleados.innerHTML = ""; // Limpia lo que había antes
+
+                if (data.length === 0) {
+                    tablaEmpleados.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#555;">No tienes empleados asignados actualmente.</td></tr>`;
+                    return;
+                }
+
+                data.forEach(emp => {
+                    // 5. Construir la fila (CAMBIO AQUÍ)
+                    const fila = `
+                          <tr>
+                            <td>${emp.idEmpleado}</td>
+                            <td>${emp.nombre} ${emp.apellido}</td>
+                            <td>${emp.puesto ? emp.puesto : 'N/A'}</td>
+                            <td>${emp.correoEmpresarial}</td>
+                            <!-- Muestra el teléfono o 'N/A' si es nulo -->
+                            <td>${emp.telefono ? emp.telefono : 'N/A'}</td>
+                          </tr>
+                        `;
+                    tablaEmpleados.insertAdjacentHTML("beforeend", fila);
+                });
+            })
+            .catch(error => {
+                console.error("Error en fetch:", error);
+                tablaEmpleados.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">Error al cargar empleados.</td></tr>`;
+            });
+    });
+</script>
 </body>
 </html>
